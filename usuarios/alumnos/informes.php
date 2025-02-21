@@ -1,0 +1,410 @@
+<?php
+
+// Inicializar sesión.
+session_start();
+
+// Validar sesión y rol.
+if (empty($_SESSION['rol']) || $_SESSION['rol'] !== 'alumnos') {
+    $_SESSION['mensaje_error'] = "Rol inválido.";
+    header("Location: http://entornosgraficospps.infinityfreeapp.com/");
+    exit();
+}
+
+// Validar información de sesión.
+if (empty($_SESSION['dni'])) {
+    $_SESSION['mensaje_error'] = "La sesión ha caducado.";
+    header("Location: ../login.php");
+    exit();
+} else {
+    $dni = $_SESSION['dni'];
+}
+
+// Abrir la conexión a la base de datos.
+include $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
+
+// Validar acceso autorizado.
+$stmt = $mysqli->prepare("SELECT * FROM alumnos WHERE dni = ?");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+$result = $stmt->get_result();
+$alumno = $result->fetch_assoc();
+if (empty($alumno['fecha_plan_trabajo'])) {
+    $_SESSION['mensaje_error'] = "Acceso no autorizado.";
+    header("Location: ../menu_principal.php");
+    exit();
+}
+
+// Buscar nombre y apellido del alumno.
+$stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE dni = ?");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+$result = $stmt->get_result();
+$alumno = $result->fetch_assoc();
+
+// Buscar todos los informes.
+$stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? ORDER BY fecha_subida");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+
+// Validar si existen informes.
+$informes_result = $stmt->get_result();
+if ($informes_result->num_rows > 0) {
+
+    // Obtener cantidad total de informes originales.
+    $stmt = $mysqli->prepare("SELECT COUNT(*) FROM informes WHERE dni_alumno = ? AND original = 1");
+    $stmt->bind_param("s", $dni);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_row();
+    $cantidad_total = $row[0];
+
+    // Obtener cantidad de informes aprobados.
+    $cantidad_aprobados = 0;
+    $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND original = 1");
+    $stmt->bind_param("s", $dni);
+    $stmt->execute();
+    $result_informes = $stmt->get_result();
+    while ($informe = $result_informes->fetch_assoc()) {
+        if ($informe['estado'] === 'APROBADO') {
+            $cantidad_aprobados += 1;
+        } elseif ($informe['estado'] === 'RECHAZADO') {
+            $id_informe = $informe['id_informe'];
+            $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND original = 0");
+            $stmt->bind_param("si", $dni, $id_informe);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $informe_corregido = $result->fetch_assoc();
+                if ($informe_corregido['estado'] === 'APROBADO') $cantidad_aprobados += 1;
+            }
+        }
+    }
+
+    // Obtener MAX(id_informe).
+    $stmt = $mysqli->prepare("SELECT MAX(id_informe) FROM informes WHERE dni_alumno = ?");
+    $stmt->bind_param("s", $dni);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_row();
+    $max_id_informe = $row[0];
+
+    // Validar si ha pasado mas de una semana desde que se subio el ultimo informe original.
+    $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND original = 1");
+    $stmt->bind_param("si", $dni, $max_id_informe);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $informe = $result->fetch_assoc();
+    $fecha_subida = date("Y-m-d", strtotime($informe['fecha_subida']));
+    $fecha_hoy = new DateTime();
+    $fecha_hoy->sub(new DateInterval('P7D'));
+    $fecha_limite = $fecha_hoy->format('Y-m-d');
+    if ($fecha_subida > $fecha_limite) $supera_semana = 0;
+    else $supera_semana = 1;
+
+    // Validar si se ha subido un informe final y si este fue rechazado.
+    $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND final = 1");
+    $stmt->bind_param("si", $dni, $max_id_informe);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $subio_informe_final = 1;
+        $informe_final = $result->fetch_assoc();
+        if ($informe_final['estado'] === 'RECHAZADO') $informe_final_rechazado = 1;
+        else $informe_final_rechazado = 0;
+    } else {
+        $subio_informe_final = 0;
+    }
+
+    // Obtener la fecha de fin del ciclo lectivo del alumno.
+    $stmt = $mysqli->prepare("SELECT * FROM alumnos a INNER JOIN ciclos_lectivos cl ON a.id_ciclo_lectivo = cl.id_ciclo_lectivo WHERE dni = ?");
+    $stmt->bind_param("s", $dni);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $ciclo_lectivo = $result->fetch_assoc();
+    $fecha_fin = $ciclo_lectivo['fecha_fin'];
+    $fecha_hoy = date('Y-m-d');
+    if (strtotime($fecha_hoy) > strtotime($fecha_fin)) $supera_fecha_fin = 1;
+    else $supera_fecha_fin = 0;
+} else {
+
+    // Inicializar variables.
+    $cantidad_total = 0;
+    $cantidad_aprobados = 0;
+    $supera_semana = 1;
+}
+
+// Redirección.
+$href_pps = '';
+$href_lista_profesores = '/usuarios/lista_profesores.php';
+$href_notificaciones = '/usuarios/notificaciones.php';
+$href_modificar_perfil = '/usuarios/modificar_perfil.php';
+$href_cerrar_sesion = '/cerrar_sesion.php';
+?>
+
+<!doctype html>
+<html lang="en">
+
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
+?>
+
+<body>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
+    ?>
+    <main>
+        <div class="mt-5 container background-border">
+            <div class="row pt-4 mb-3">
+                <div class="col">
+                    <h2 class="text-center">Informes Semanales</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive mb-4">
+                        <table class="table table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-2">ID</th>
+                                    <th scope="col" class="col-4">Nombre Archivo</th>
+                                    <th scope="col" class="col-4">Fecha Subida</th>
+                                    <th scope="col" class="col-2">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($informes_result->num_rows > 0) {
+                                    while ($informe = $informes_result->fetch_assoc()) {
+                                ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $informe['id_informe'] ?></th>
+                                            <td><?php echo $informe['nombre_archivo'] ?></td>
+                                            <td><?php echo $informe['fecha_subida'] ?></td>
+                                            <td>
+                                                <?php
+                                                if ($informe['estado'] === 'APROBADO' && $informe['final'] == 0) {
+                                                ?>
+                                                    <span class="badge bg-success"><?php echo $informe['estado'] ?></span>
+                                                <?php
+                                                } elseif ($informe['estado'] === 'APROBADO' && $informe['final'] == 1) {
+                                                ?>
+                                                    <span class="badge bg-success">FINAL APROBADO</span>
+                                                <?php
+                                                } elseif (!empty($informe['correcciones']) && $informe['final'] == 1) {
+                                                ?>
+                                                    <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $informe["id_informe"] ?>">FINAL RECHAZADO (VER CORRECCION)</button>
+                                                <?php
+                                                } elseif (!empty($informe['correcciones']) && $informe['final'] == 0) {
+                                                ?>
+                                                    <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $informe["id_informe"] ?>">VER CORRECCION</button>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <span class="badge bg-warning text-dark"><?php echo $informe['estado'] ?></span>
+                                                <?php
+                                                }
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        if (!empty($informe['correcciones'])) {
+                                            $id_informe = $informe['id_informe'];
+                                            $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND original = 0");
+                                            $stmt->bind_param("si", $dni, $id_informe);
+                                            $stmt->execute();
+                                            $result5 = $stmt->get_result();
+                                            if ($result5->num_rows > 0) $existe_correccion = 1;
+                                            else $existe_correccion = 0;
+                                        ?>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="modal-correcciones<?php echo $informe["id_informe"] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Correcciones del Informe N<?php echo $informe["id_informe"] ?></h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><?php echo $informe["correcciones"] ?></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="container">
+                                                                <?php
+                                                                if ($existe_correccion == 0 && $informe['final'] == 0) {
+                                                                ?>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col d-flex justify-content-center align-items-center">
+                                                                            <p id="nombre-informe-corregido-<?php echo $informe['id_informe'] ?>">No se ha seleccionado ningun archivo</p>
+                                                                            <label for="file-input-informe-corregido-<?php echo $informe['id_informe'] ?>" class="upload-icon ms-3"><span class="icon">+</span></label>
+                                                                            <input type="file" class="d-none" form="form-subir-informe-corregido<?php echo $informe['id_informe'] ?>" name="informe-corregido-<?php echo $informe['id_informe'] ?>" id="file-input-informe-corregido-<?php echo $informe['id_informe'] ?>" onchange="actualizarTextoInformeCorregido(<?php echo $informe['id_informe'] ?>)" required>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                <div class="row">
+                                                                    <div class="col d-flex justify-content-center">
+                                                                        <form method="POST" action="subir_informe_corregido.php" enctype="multipart/form-data" id="form-subir-informe-corregido<?php echo $informe['id_informe']; ?>">
+                                                                            <input type="hidden" value="<?php echo $informe['id_informe'] ?>" name="id-informe">
+                                                                            <input type="hidden" value="<?php echo $alumno['apellido'] ?>" name="apellido">
+                                                                            <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
+                                                                            <?php
+                                                                            if ($existe_correccion == 0 && $informe['final'] == 0) {
+                                                                            ?>
+                                                                                <button type="submit" class="btn btn-primary m-2" id="submit-button-informe-corregido-<?php echo $informe['id_informe']; ?>" disabled>Subir Informe Corregido</button>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Fin Modal -->
+                                        <?php
+                                        }
+                                        ?>
+                                    <?php
+                                    }
+                                }
+                                if (($cantidad_total < 3 && $supera_semana) || ($cantidad_total == 3 && $cantidad_aprobados == 3 && $supera_semana && $supera_fecha_fin) || ($cantidad_total > 3 && $cantidad_aprobados == 3 && $supera_semana && $supera_fecha_fin && $informe_final_rechazado)) {
+                                    ?>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td colspan="2" id="nombre-archivo">No se ha seleccionado ningun archivo</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <label for="file-input-informe" class="upload-icon">
+                                                    <span class="icon">+</span>
+                                                </label>
+                                                <input type="file" class="d-none" form="form-subir-informe" name="informe" id="file-input-informe" onchange="actualizarTextoInforme()" required>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php
+                    if ($cantidad_total < 3) {
+                    ?>
+                        <form action="subir_informe.php" method="POST" enctype="multipart/form-data" id="form-subir-informe">
+                            <input type="hidden" value="<?php echo $alumno['apellido'] ?>" name="apellido">
+                            <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-center pb-4">
+                                    <button type="submit" class="btn btn-primary" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe</button>
+                                </div>
+                                <?php
+                                if (!$supera_semana) {
+                                ?>
+                                    <div class="d-flex flex-row justify-content-center">
+                                        <p>El ultimo informe se ha subido hace menos de 1 semana.</p>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </form>
+
+                        <?php
+                    } elseif (($cantidad_total == 3 && $cantidad_aprobados == 3) || ($cantidad_total > 3 && $cantidad_aprobados == 3 && $informe_final_rechazado)) {
+                        if ($supera_fecha_fin) {
+                        ?>
+                            <form action="subir_informe_final.php" method="POST" enctype="multipart/form-data" id="form-subir-informe">
+                                <div class="mt-4 mb-3 d-flex justify-content-center">
+                                    <input type="hidden" value="<?php echo $alumno['apellido'] ?>" name="apellido">
+                                    <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-row justify-content-center pb-4">
+                                            <button type="submit" class="btn btn-dark" style="background-color: #af69cd;" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe Final</button>
+                                        </div>
+                                        <?php
+                                        if (!$supera_semana) {
+                                        ?>
+                                            <div class="d-flex flex-row justify-content-center">
+                                                <p>El ultimo informe se ha subido hace menos de 1 semana.</p>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </form>
+                        <?php
+                        } else {
+                        ?>
+                            <div class="d-flex flex-column mb-3 align-items-center">
+                                <div class="d-flex flex-col text-center mb-3 px-3">Una vez finalizado el ciclo lectivo, podrás subir el informe final.</div>
+                                <div class="d-flex flex-col">Fecha de fin del ciclo lectivo</div>
+                                <div class="d-flex flex-col"><?php echo $fecha_fin ?></div>
+                            </div>
+                    <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+        function actualizarTextoInforme() {
+            var fileInputInforme = document.getElementById('file-input-informe');
+            var texto = document.getElementById('nombre-archivo');
+            var submitButton = document.getElementById('submit-button-subir-informe');
+            if (fileInputInforme.files.length > 0) {
+                texto.textContent = fileInputInforme.files[0].name;
+                submitButton.removeAttribute('disabled');
+            }
+        }
+
+        function actualizarTextoInformeCorregido(id_informe) {
+            var fileInput = document.getElementById('file-input-informe-corregido-' + id_informe);
+            var texto = document.getElementById('nombre-informe-corregido-' + id_informe);
+            var submitButton = document.getElementById('submit-button-informe-corregido-' + id_informe);
+            if (fileInput.files.length > 0) {
+                texto.textContent = fileInput.files[0].name;
+                submitButton.removeAttribute('disabled');
+            }
+        }
+    </script>
+    <script>
+        // Esperamos a que el documento esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionamos el toggle y el contenedor que queremos ocultar/mostrar
+            const navbarToggle = document.querySelector('.navbar-toggler');
+            const mainContainer = document.querySelector('main');
+
+            // Verificamos si ambos elementos existen
+            if (navbarToggle && mainContainer) {
+                // Detectamos cuando se abre o se cierra el menú
+                const navbarCollapse = document.getElementById('navbarExample');
+
+                // Cuando el menú se muestra, ocultamos el contenedor 'main'
+                navbarCollapse.addEventListener('show.bs.collapse', function() {
+                    mainContainer.style.display = 'none';
+                });
+
+                // Cuando el menú se oculta, mostramos el contenedor 'main'
+                navbarCollapse.addEventListener('hidden.bs.collapse', function() {
+                    mainContainer.style.display = 'block';
+                });
+            }
+        });
+    </script>
+
+    <?php
+    // Cerrar la conexión a la base de datos.
+    $mysqli->close();
+    ?>
+</body>
+
+</html>
