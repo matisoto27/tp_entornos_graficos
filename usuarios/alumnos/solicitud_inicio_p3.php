@@ -67,6 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    // Lista de modalidades válidas.
+    $modalidades_validas = [
+        "Presencial",
+        "Remoto",
+        "Hibrido"
+    ];
+
+    // Validar modalidad.
+    if (!in_array($modalidad_trabajo, $modalidades_validas)) {
+        $_SESSION['mensaje_error'] = "Por favor, seleccione una modalidad.";
+        header("Location: ../menu_principal.php");
+        exit();
+    }
+
     // Validar que el nombre del jefe solo contenga letras.
     if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/', $nombre_jefe)) {
         $_SESSION['mensaje_error'] = "El nombre del jefe solo puede contener letras.";

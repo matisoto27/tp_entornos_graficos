@@ -40,6 +40,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../menu_principal.php");
         exit();
     }
+
+    // Lista de carreras válidas.
+    $carreras_validas = [
+        "Ingeniería Civil",
+        "Ingeniería en Energía Eléctrica",
+        "Ingeniería Mecánica",
+        "Ingeniería Química",
+        "Ingeniería en Sistemas de Información"
+    ];
+
+    // Validar carrera.
+    if (!in_array($carrera, $carreras_validas)) {
+        $_SESSION['mensaje_error'] = "Por favor, seleccione una carrera.";
+        header("Location: ../menu_principal.php");
+        exit();
+    }
 } else {
 
     // Establecer mensaje de error.
