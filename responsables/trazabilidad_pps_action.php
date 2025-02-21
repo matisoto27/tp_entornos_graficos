@@ -228,7 +228,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
         <?php
-        if (!empty($ultimo_informe['estado']) && $ultimo_informe['estado'] === 'APROBADO') {
+        if ($ultimo_informe['final'] == 1 && !empty($ultimo_informe['estado']) && $ultimo_informe['estado'] === 'APROBADO') {
         ?>
             <div class="d-flex flex-row justify-content-center my-4" style="border-top: 1px solid black;">
                 <div class="d-flex flex-column">
