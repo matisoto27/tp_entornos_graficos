@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Establecer mensaje de éxito, cerrar la conexión a la base de datos, redireccionar y finalizar el script actual.
     $_SESSION['mensaje_exito'] = "Se han registrado las correcciones del informe con éxito.";
     $mysqli->close();
-    header("Location: informes.php");
+    header("Location: ../menu_principal.php");
     exit();
 } else {
 
