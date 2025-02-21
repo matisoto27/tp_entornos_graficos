@@ -1,5 +1,8 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Inicializar sesión.
 session_start();
 
@@ -102,16 +105,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_SESSION['rol'] === 'alumnos') {
 
-        // Establecer variables para la consulta.
-        $contrasena = '12341234';
+        // Generar contraseña aleatoria.
+        function generarContrasena()
+        {
+            $caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            $contrasena = '';
+            for ($i = 0; $i < 8; $i++) {
+                $index = rand(0, strlen($caracteres) - 1);
+                $contrasena .= $caracteres[$index];
+            }
+            return $contrasena;
+        }
+        $contrasena = generarContrasena();
+
+        // Iniciar la transacción de la base de datos.
+        $mysqli->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
 
         // Prepared statement.
         $stmt = $mysqli->prepare("INSERT INTO usuarios (dni, nombre, apellido, fecha_nacimiento, email, rol, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssss", $dni, $nombre, $apellido, $fecha_nacimiento, $email, $rol, $contrasena);
         $stmt->execute();
+
+        // Prepared statement.
         $stmt = $mysqli->prepare("INSERT INTO alumnos (dni) VALUES (?)");
         $stmt->bind_param("s", $dni);
         $stmt->execute();
+
+        // Incluir el autoload de PHPMailer.
+        include $_SERVER['DOCUMENT_ROOT'] . '/librerias/vendor/autoload.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configurar el servidor SMTP de Gmail.
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = SENDER_EMAIL;
+            $mail->Password = GMAIL_PASSWORD;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            // Remitente y destinatario.
+            $mail->setFrom(SENDER_EMAIL, SENDER_NAME);
+            $mail->addAddress($email, $nombre . ' ' . $apellido);
+
+            // Establecer contenido del correo.
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = 'Contraseña PPS';
+            $mail->Body = 'Tu contraseña para ingresar es: <b>' . $contrasena . '</b><br><br>¡Gracias por registrarte!';
+            $mail->AltBody = 'Tu contraseña para ingresar es: ' . $contrasena . '\n\n¡Gracias por registrarte!';
+
+            // Enviar el correo.
+            $mail->send();
+        } catch (Exception $e) {
+
+            // Revertir los cambios, establecer mensaje de error, redireccionar y finalizar el script actual.
+            $mysqli->rollback();
+            $_SESSION['mensaje_error'] = "El mensaje no pudo ser enviado. Error: " . $e->getMessage();
+            header("Location: signup.php");
+            exit();
+        }
+
+        // Confirmar cambios y establecer mensaje de éxito.
+        $mysqli->commit();
         $_SESSION['mensaje_exito'] = "¡Te has registrado con éxito! Hemos enviado a tu correo electrónico la contraseña que debes utilizar para iniciar sesión.";
     } else {
 
