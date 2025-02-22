@@ -158,7 +158,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     foreach ($alumnos as $alumno) {
                                         $contador++;
                                 ?>
-                                        <tr>
+                                        <tr style="height: 75px;">
                                             <td><?php echo $alumno['fecha_subida'] ?></td>
                                             <td><?php echo $alumno['legajo'] ?></td>
                                             <td><?php echo $alumno['id_informe'] ?></td>
@@ -260,7 +260,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     while ($contador < $registros_por_pagina) {
                                         $contador++;
                                     ?>
-                                        <tr>
+                                        <tr style="height: 75px;">
                                             <td></td>
                                             <td></td>
                                             <td></td>

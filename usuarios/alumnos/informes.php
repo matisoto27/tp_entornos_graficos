@@ -203,11 +203,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 
                                                     if ($informe['final'] == 1) {
                                                     ?>
-                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', '<?php echo $existe_correccion ?>', 1)">Final Rechazado (VER CORRECCION)</button>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 1)">Final Rechazado (VER CORRECCION)</button>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', '<?php echo $existe_correccion ?>', 0)">Informe Rechazado (VER CORRECCION)</button>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 0)">Informe Rechazado (VER CORRECCION)</button>
                                                     <?php
                                                     }
                                                 } else {
@@ -268,7 +268,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                         if ($supera_fecha_fin) {
                         ?>
                             <form action="subir_informe_final.php" method="POST" enctype="multipart/form-data" id="form-subir-informe">
-                                <div class="mt-4 mb-3 d-flex justify-content-center">
+                                <div class="mt-4 d-flex justify-content-center">
                                     <input type="hidden" value="<?php echo $alumno['apellido'] ?>" name="apellido">
                                     <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
                                     <div class="d-flex flex-column">
@@ -278,7 +278,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                         <?php
                                         if (!$supera_semana) {
                                         ?>
-                                            <div class="d-flex flex-row justify-content-center">
+                                            <div class="d-flex flex-row justify-content-center pb-4">
                                                 <p>El último informe se ha subido hace menos de 1 semana.</p>
                                             </div>
                                         <?php
@@ -317,7 +317,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <div class="container">
                         <div class="row mb-3" id="modal-footer-row">
                             <div class="col d-flex justify-content-center align-items-center">
-                                <p id="nombre-informe-corregido">No se ha seleccionado ningún archivo</p>
+                                <p class="mb-0" id="nombre-informe-corregido">No se ha seleccionado ningún archivo</p>
                                 <label for="file-input-informe-corregido" class="upload-icon ms-3"><span class="icon">+</span></label>
                                 <input type="file" class="d-none" form="form-subir-informe-corregido" name="informe-corregido" id="file-input-informe-corregido" onchange="actualizarTextoInformeCorregido()" required>
                             </div>
