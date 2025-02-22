@@ -189,84 +189,35 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                 } elseif ($informe['estado'] === 'APROBADO' && $informe['final'] == 1) {
                                                 ?>
                                                     <span class="badge bg-success">FINAL APROBADO</span>
-                                                <?php
-                                                } elseif (!empty($informe['correcciones']) && $informe['final'] == 1) {
-                                                ?>
-                                                    <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $informe["id_informe"] ?>">FINAL RECHAZADO (VER CORRECCION)</button>
-                                                <?php
-                                                } elseif (!empty($informe['correcciones']) && $informe['final'] == 0) {
-                                                ?>
-                                                    <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $informe["id_informe"] ?>">VER CORRECCION</button>
-                                                <?php
+                                                    <?php
+                                                } elseif (!empty($informe['correcciones'])) {
+
+                                                    // Validar si existe un informe corregido con el mismo ID.
+                                                    $id_informe = $informe['id_informe'];
+                                                    $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND original = 0");
+                                                    $stmt->bind_param("si", $dni, $id_informe);
+                                                    $stmt->execute();
+                                                    $result20 = $stmt->get_result();
+                                                    if ($result20->num_rows > 0) $existe_correccion = 1;
+                                                    else $existe_correccion = 0;
+
+                                                    if ($informe['final'] == 1) {
+                                                    ?>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', '<?php echo $existe_correccion ?>', 1)">Final Rechazado (VER CORRECCION)</button>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', '<?php echo $existe_correccion ?>', 0)">Informe Rechazado (VER CORRECCION)</button>
+                                                    <?php
+                                                    }
                                                 } else {
-                                                ?>
+                                                    ?>
                                                     <span class="badge bg-warning text-dark"><?php echo $informe['estado'] ?></span>
                                                 <?php
                                                 }
                                                 ?>
                                             </td>
                                         </tr>
-                                        <?php
-                                        if (!empty($informe['correcciones'])) {
-                                            $id_informe = $informe['id_informe'];
-                                            $stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? AND id_informe = ? AND original = 0");
-                                            $stmt->bind_param("si", $dni, $id_informe);
-                                            $stmt->execute();
-                                            $result5 = $stmt->get_result();
-                                            if ($result5->num_rows > 0) $existe_correccion = 1;
-                                            else $existe_correccion = 0;
-                                        ?>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="modal-correcciones<?php echo $informe["id_informe"] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Correcciones del Informe N<?php echo $informe["id_informe"] ?></h5>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p><?php echo $informe["correcciones"] ?></p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <div class="container">
-                                                                <?php
-                                                                if ($existe_correccion == 0 && $informe['final'] == 0) {
-                                                                ?>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col d-flex justify-content-center align-items-center">
-                                                                            <p id="nombre-informe-corregido-<?php echo $informe['id_informe'] ?>">No se ha seleccionado ningun archivo</p>
-                                                                            <label for="file-input-informe-corregido-<?php echo $informe['id_informe'] ?>" class="upload-icon ms-3"><span class="icon">+</span></label>
-                                                                            <input type="file" class="d-none" form="form-subir-informe-corregido<?php echo $informe['id_informe'] ?>" name="informe-corregido-<?php echo $informe['id_informe'] ?>" id="file-input-informe-corregido-<?php echo $informe['id_informe'] ?>" onchange="actualizarTextoInformeCorregido(<?php echo $informe['id_informe'] ?>)" required>
-                                                                        </div>
-                                                                    </div>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                                <div class="row">
-                                                                    <div class="col d-flex justify-content-center">
-                                                                        <form method="POST" action="subir_informe_corregido.php" enctype="multipart/form-data" id="form-subir-informe-corregido<?php echo $informe['id_informe']; ?>">
-                                                                            <input type="hidden" value="<?php echo $informe['id_informe'] ?>" name="id-informe">
-                                                                            <input type="hidden" value="<?php echo $alumno['apellido'] ?>" name="apellido">
-                                                                            <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
-                                                                            <?php
-                                                                            if ($existe_correccion == 0 && $informe['final'] == 0) {
-                                                                            ?>
-                                                                                <button type="submit" class="btn btn-primary m-2" id="submit-button-informe-corregido-<?php echo $informe['id_informe']; ?>" disabled>Subir Informe Corregido</button>
-                                                                            <?php
-                                                                            }
-                                                                            ?>
-                                                                            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Fin Modal -->
-                                        <?php
-                                        }
-                                        ?>
                                     <?php
                                     }
                                 }
@@ -274,7 +225,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     ?>
                                     <tr>
                                         <th scope="row">#</th>
-                                        <td colspan="2" id="nombre-archivo">No se ha seleccionado ningun archivo</td>
+                                        <td colspan="2" id="nombre-archivo">No se ha seleccionado ningún archivo</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <label for="file-input-informe" class="upload-icon">
@@ -304,7 +255,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                 if (!$supera_semana) {
                                 ?>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <p>El ultimo informe se ha subido hace menos de 1 semana.</p>
+                                        <p>El último informe se ha subido hace menos de 1 semana.</p>
                                     </div>
                                 <?php
                                 }
@@ -328,7 +279,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                         if (!$supera_semana) {
                                         ?>
                                             <div class="d-flex flex-row justify-content-center">
-                                                <p>El ultimo informe se ha subido hace menos de 1 semana.</p>
+                                                <p>El último informe se ha subido hace menos de 1 semana.</p>
                                             </div>
                                         <?php
                                         }
@@ -352,10 +303,60 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-correcciones" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-titulo"></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-start" id="modal-mensaje"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="container">
+                        <div class="row mb-3" id="modal-footer-row">
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <p id="nombre-informe-corregido">No se ha seleccionado ningún archivo</p>
+                                <label for="file-input-informe-corregido" class="upload-icon ms-3"><span class="icon">+</span></label>
+                                <input type="file" class="d-none" form="form-subir-informe-corregido" name="informe-corregido" id="file-input-informe-corregido" onchange="actualizarTextoInformeCorregido()" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <form method="POST" action="subir_informe_corregido.php" enctype="multipart/form-data" id="form-subir-informe-corregido">
+                                    <input type="hidden" name="id-informe" id="modal-input-id-informe">
+                                    <input type="hidden" name="apellido" id="modal-input-apellido">
+                                    <input type="hidden" name="nombre" id="modal-input-nombre">
+                                    <button type="submit" class="btn btn-primary m-2" id="submit-button-informe-corregido" disabled>Subir Informe Corregido</button>
+                                    <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
+        function abrirModal(id_informe, correcciones, existe_correccion, es_final) {
+            document.getElementById('modal-titulo').innerText = 'Correcciones del Informe N' + id_informe;
+            document.getElementById('modal-mensaje').innerText = correcciones;
+            if (existe_correccion == 1 || es_final == 1) {
+                document.getElementById('modal-footer-row').style.display = 'none';
+                document.getElementById('submit-button-informe-corregido').style.display = 'none';
+            } else {
+                const apellido = "<?php echo $alumno['apellido'] ?>";
+                const nombre = "<?php echo $alumno['nombre'] ?>";
+                document.getElementById('modal-input-id-informe').value = id_informe;
+                document.getElementById('modal-input-apellido').value = apellido;
+                document.getElementById('modal-input-nombre').value = nombre;
+            }
+        }
+
         function actualizarTextoInforme() {
             var fileInputInforme = document.getElementById('file-input-informe');
             var texto = document.getElementById('nombre-archivo');
@@ -366,34 +367,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             }
         }
 
-        function actualizarTextoInformeCorregido(id_informe) {
-            var fileInput = document.getElementById('file-input-informe-corregido-' + id_informe);
-            var texto = document.getElementById('nombre-informe-corregido-' + id_informe);
-            var submitButton = document.getElementById('submit-button-informe-corregido-' + id_informe);
+        function actualizarTextoInformeCorregido() {
+            var fileInput = document.getElementById('file-input-informe-corregido');
+            var texto = document.getElementById('nombre-informe-corregido');
+            var submitButton = document.getElementById('submit-button-informe-corregido');
             if (fileInput.files.length > 0) {
                 texto.textContent = fileInput.files[0].name;
                 submitButton.removeAttribute('disabled');
             }
         }
-    </script>
-    <script>
-        // Esperamos a que el documento esté cargado
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionamos el toggle y el contenedor que queremos ocultar/mostrar
             const navbarToggle = document.querySelector('.navbar-toggler');
             const mainContainer = document.querySelector('main');
-
-            // Verificamos si ambos elementos existen
             if (navbarToggle && mainContainer) {
-                // Detectamos cuando se abre o se cierra el menú
                 const navbarCollapse = document.getElementById('navbarExample');
-
-                // Cuando el menú se muestra, ocultamos el contenedor 'main'
                 navbarCollapse.addEventListener('show.bs.collapse', function() {
                     mainContainer.style.display = 'none';
                 });
-
-                // Cuando el menú se oculta, mostramos el contenedor 'main'
                 navbarCollapse.addEventListener('hidden.bs.collapse', function() {
                     mainContainer.style.display = 'block';
                 });

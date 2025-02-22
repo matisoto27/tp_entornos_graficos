@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
 
     // Validar que el archivo se haya subido correctamente.
-    if (isset($_FILES['informe-corregido-' . $id_informe]) && $_FILES['informe-corregido-' . $id_informe]['error'] === 0) {
+    if (isset($_FILES['informe-corregido']) && $_FILES['informe-corregido']['error'] === 0) {
 
         // Validar tipo de archivo.
-        if ($_FILES['informe-corregido-' . $id_informe]['type'] !== 'application/pdf') {
+        if ($_FILES['informe-corregido']['type'] !== 'application/pdf') {
             $_SESSION['mensaje_error'] = "Solo se admiten archivos en formato PDF.";
             header("Location: ../menu_principal.php");
             exit();
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ruta_archivo = 'informes/' . $nombre_archivo;
 
         // Validar si el archivo se movió correctamente.
-        if (!move_uploaded_file($_FILES['informe-corregido-' . $id_informe]['tmp_name'], $ruta_archivo)) {
+        if (!move_uploaded_file($_FILES['informe-corregido']['tmp_name'], $ruta_archivo)) {
             $_SESSION['mensaje_error'] = "Se ha producido un error inesperado.";
             header("Location: ../menu_principal.php");
             exit();
