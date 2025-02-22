@@ -133,11 +133,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Incluir el autoload de PHPMailer.
         include $_SERVER['DOCUMENT_ROOT'] . '/librerias/vendor/autoload.php';
+
+        // Incluir archivo de configuración.
         include $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
         $mail = new PHPMailer(true);
 
         try {
+
             // Configurar el servidor SMTP de Gmail.
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
