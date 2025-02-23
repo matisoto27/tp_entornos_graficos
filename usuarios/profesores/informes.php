@@ -202,7 +202,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <a href="solicitud_inicio_pdf.php?dni=<?php echo $alumno['dni'] ?>">
+                                                    <a href="solicitud_inicio_pdf.php?dni=<?php echo $alumno['dni'] ?>" target="_blank">
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php
@@ -221,10 +221,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                         $total = $alu['total'];
                                                         if ($alu['total'] < 2) {
                                                 ?>
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-informe-<?php echo $alumno['id_informe'] ?>">Click aqui</button>
-                                                <?php
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-informe" onclick="abrirModal('<?php echo $alumno['dni'] ?>', '<?php echo $alumno['nombre'] ?>', '<?php echo $alumno['apellido'] ?>', '<?php echo $alumno['id_informe'] ?>', '<?php echo $alumno['original'] ?>')">Click aqui</button>
+                                                        <?php
                                                         }
+                                                    } else {
+                                                        ?>
+                                                        -
+                                                    <?php
                                                     }
+                                                } else {
+                                                    ?>
+                                                    -
+                                                <?php
                                                 }
                                                 ?>
                                             </td>
@@ -247,41 +255,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                         } else {
                                                         ?>
                                                             <button type="submit" class="btn btn-success">Aprobar</button>
-                                                    <?php
+                                                        <?php
                                                         }
+                                                    } else {
+                                                        ?>
+                                                        -
+                                                    <?php
                                                     }
                                                     ?>
                                                 </form>
                                             </td>
                                         </tr>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="modal-informe-<?php echo $alumno['id_informe'] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-informe-label" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalTitleId">Agregar correcciones al alumno <?php echo $alumno["nombre"] . ' ' . $alumno["apellido"] ?></h5>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form id="form-correcciones" action="corregir_informe.php" method="POST">
-                                                            <div class="mb-3">
-                                                                <label for="input-correcciones-<?php echo $alumno['id_informe'] ?>" class="form-label">Escriba las correcciones a continuación:</label>
-                                                                <input type="text" class="form-control" name="correcciones" id="input-correcciones-<?php echo $alumno['id_informe'] ?>" required>
-                                                            </div>
-                                                            <input type="hidden" value="<?php echo $alumno["dni"] ?>" name="dni-alumno">
-                                                            <input type="hidden" value="<?php echo $alumno["id_informe"] ?>" name="id-informe">
-                                                            <input type="hidden" value="<?php echo $alumno["original"] ?>" name="original">
-                                                            <div class="d-flex justify-content-center">
-                                                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer d-flex justify-content-center">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Fin Modal -->
                                     <?php
                                     }
                                     // Rellenar las filas restantes si no hay suficientes registros.
@@ -371,32 +355,62 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-informe" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-informe-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-informe-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-correcciones" action="corregir_informe.php" method="POST">
+                        <div class="mb-3">
+                            <label for="input-correcciones" class="form-label">Escriba las correcciones a continuación:</label>
+                            <input type="text" class="form-control" name="correcciones" id="input-correcciones" required>
+                        </div>
+                        <input type="hidden" name="dni-alumno" id="input-dni-alumno">
+                        <input type="hidden" name="id-informe" id="input-id-informe">
+                        <input type="hidden" name="original" id="input-original">
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
-        // Esperamos a que el documento esté cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionamos el toggle y el contenedor que queremos ocultar/mostrar
             const navbarToggle = document.querySelector('.navbar-toggler');
             const mainContainer = document.querySelector('main');
-
-            // Verificamos si ambos elementos existen
             if (navbarToggle && mainContainer) {
-                // Detectamos cuando se abre o se cierra el menú
                 const navbarCollapse = document.getElementById('navbarExample');
-
-                // Cuando el menú se muestra, ocultamos el contenedor 'main'
                 navbarCollapse.addEventListener('show.bs.collapse', function() {
                     mainContainer.style.display = 'none';
                 });
-
-                // Cuando el menú se oculta, mostramos el contenedor 'main'
                 navbarCollapse.addEventListener('hidden.bs.collapse', function() {
                     mainContainer.style.display = 'block';
                 });
             }
         });
+
+        function abrirModal(dni, nombre, apellido, id_informe, original) {
+
+            // Establecer el título del modal.
+            const modalInformeTitle = document.getElementById('modal-informe-title');
+            modalInformeTitle.innerText = 'Agregar correcciones al alumno ' + apellido + ' ' + nombre;
+
+            // Asignar valores a los campos ocultos del formulario.
+            document.getElementById('input-dni-alumno').value = dni;
+            document.getElementById('input-id-informe').value = id_informe;
+            document.getElementById('input-original').value = original;
+        }
     </script>
 
     <?php
