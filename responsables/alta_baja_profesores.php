@@ -86,44 +86,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                             <?php
                                             if ($profesor["activo"] == 1) {
                                             ?>
-                                                <td><button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor<?php echo $profesor["dni"] ?>">Activo</button></td>
+                                                <td><button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Activo</button></td>
                                             <?php
                                             } else {
                                             ?>
-                                                <td><button type="button" class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor<?php echo $profesor["dni"] ?>">Dado de Baja</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Dado de Baja</button></td>
                                             <?php
                                             }
                                             ?>
                                         </tr>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="modal-profesor<?php echo $profesor["dni"] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-label" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <?php
-                                                        if ($profesor['activo'] == 0) {
-                                                        ?>
-                                                            <h5 class="modal-title" id="modal-profesor-title"><?php echo '¿Desea reactivar en el sistema al profesor ' . $profesor['nombre'] . ' ' . $profesor['apellido'] . '?' ?></h5>
-                                                        <?php
-                                                        } else {
-                                                        ?>
-                                                            <h5 class="modal-title" id="modal-profesor-title"><?php echo '¿Desea dar de baja del sistema al profesor ' . $profesor['nombre'] . ' ' . $profesor['apellido'] . '?' ?></h5>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-center">
-                                                        <form method="POST" action="alta_baja_profesores_action.php">
-                                                            <input type="hidden" name="dni" value="<?php echo $profesor["dni"] ?>">
-                                                            <input type="hidden" name="activo" value="<?php echo $profesor["activo"] ?>">
-                                                            <button type="submit" class="btn btn-success">Confirmar</button>
-                                                        </form>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Fin Modal -->
                                     <?php
                                     }
                                     // Rellenar las filas restantes si no hay suficientes registros.
@@ -205,9 +176,41 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-profesor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-profesor-title"></h5>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <form method="POST" action="alta_baja_profesores_action.php">
+                        <input type="hidden" name="dni" id="input-dni">
+                        <input type="hidden" name="activo" id="input-activo">
+                        <button type="submit" class="btn btn-success">Confirmar</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    <script>
+        function abrirModal(dni, nombre, apellido, activo) {
+
+            // Establecer el título del modal.
+            const modalProfesorTitle = document.getElementById('modal-profesor-title');
+            if (activo == 0) modalProfesorTitle.innerText = '¿Está seguro de que desea reactivar en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
+            else modalProfesorTitle.innerText = '¿Está seguro de que desea dar de baja en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
+
+            // Asignar valores a los campos ocultos del formulario.
+            document.getElementById('input-dni').value = dni;
+            document.getElementById('input-activo').value = activo;
+        }
+    </script>
 
     <?php
     // Cerrar la conexión a la base de datos.
