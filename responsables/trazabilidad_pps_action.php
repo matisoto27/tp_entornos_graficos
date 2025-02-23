@@ -165,7 +165,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                 <?php echo $i['nombre_archivo'] ?>
                             </a>
                         </div>
-                        <div class="p-2">Fecha de publicacion: <?php echo $i['fecha'] ?></div>
+                        <div class="p-2">Fecha de publicación: <?php echo $i['fecha'] ?></div>
                     </div>
                 </div>
             <?php
@@ -176,10 +176,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             ?>
                 <div class="d-flex flex-row-reverse mb-3">
                     <div class="d-flex flex-column text-center align-items-center" style="background-color: pink; border-radius: 10px;">
-                        <div class="p-2">Calificacion del Informe N<?php echo $i['id_informe'];
+                        <div class="p-2">Calificación del Informe N<?php echo $i['id_informe'];
                                                                     if ($i['original'] === 0) echo ' Corregido'; ?></div>
                         <div class="p-2"><?php echo $i['estado'] ?></div>
-                        <div class="p-2">Fecha de calificacion: <?php echo $i['fecha'] ?></div>
+                        <div class="p-2">Fecha de calificación: <?php echo $i['fecha'] ?></div>
                         <div class="p-2">
                             <?php if ($i['estado'] === "RECHAZADO") { ?>
                                 <button type="button" class="btn btn-light btn-sm" style="border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $i['id_informe'] ?>">VER CORRECCIONES</button>

@@ -223,12 +223,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
         function rechazarSolicitud(nombre, apellido, dni) {
-            document.getElementById('modal-rechazar-body').innerText = '¿Está seguro que desea rechazar la solicitud de registro de ' + nombre + ' ' + apellido + '?';
+            document.getElementById('modal-rechazar-body').innerText = '¿Está seguro(a) de que desea rechazar la solicitud de registro de ' + nombre + ' ' + apellido + '?';
             document.getElementById('hidden-input-rechazar-dni').value = dni;
         }
 
         function aprobarSolicitud(nombre, apellido, dni) {
-            document.getElementById('modal-aprobar-body').innerText = '¿Está seguro que desea aprobar la solicitud de registro de ' + nombre + ' ' + apellido + '?';
+            document.getElementById('modal-aprobar-body').innerText = '¿Está seguro(a) de que desea aprobar la solicitud de registro de ' + nombre + ' ' + apellido + '?';
             document.getElementById('hidden-input-aprobar-dni').value = dni;
         }
     </script>

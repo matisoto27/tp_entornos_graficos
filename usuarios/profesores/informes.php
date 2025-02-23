@@ -404,7 +404,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 
             // Establecer el título del modal.
             const modalInformeTitle = document.getElementById('modal-informe-title');
-            modalInformeTitle.innerText = 'Agregar correcciones al alumno ' + apellido + ' ' + nombre;
+            modalInformeTitle.innerText = 'Agregar correcciones al informe de ' + apellido + ' ' + nombre;
 
             // Asignar valores a los campos ocultos del formulario.
             document.getElementById('input-dni-alumno').value = dni;

@@ -238,7 +238,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script>
         function setAlumno(legajo, nombre, apellido, dniProfesor) {
             // Recuperar valores del modal.
-            document.getElementById('modalTitleId').innerText = 'Asignar Profesor a ' + nombre + ' ' + apellido;
+            document.getElementById('modalTitleId').innerText = 'Asignar un profesor a ' + apellido + ' ' + nombre;
             document.getElementById('modal-input-legajo').value = legajo;
 
             // Si el dniProfesor coincide, seleccionar esa opción.

@@ -141,23 +141,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
-        // Esperamos a que el documento esté cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionamos el toggle y el contenedor que queremos ocultar/mostrar
             const navbarToggle = document.querySelector('.navbar-toggler');
             const mainContainer = document.querySelector('main');
-
-            // Verificamos si ambos elementos existen
             if (navbarToggle && mainContainer) {
-                // Detectamos cuando se abre o se cierra el menú
                 const navbarCollapse = document.getElementById('navbarExample');
-
-                // Cuando el menú se muestra, ocultamos el contenedor 'main'
                 navbarCollapse.addEventListener('show.bs.collapse', function() {
                     mainContainer.style.display = 'none';
                 });
-
-                // Cuando el menú se oculta, mostramos el contenedor 'main'
                 navbarCollapse.addEventListener('hidden.bs.collapse', function() {
                     mainContainer.style.display = 'block';
                 });

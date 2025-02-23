@@ -203,8 +203,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 
             // Establecer el título del modal.
             const modalProfesorTitle = document.getElementById('modal-profesor-title');
-            if (activo == 0) modalProfesorTitle.innerText = '¿Está seguro de que desea reactivar en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
-            else modalProfesorTitle.innerText = '¿Está seguro de que desea dar de baja en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
+            if (activo == 0) modalProfesorTitle.innerText = '¿Está seguro(a) de que desea reactivar en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
+            else modalProfesorTitle.innerText = '¿Está seguro(a) de que desea dar de baja en el sistema al profesor(a) ' + apellido + ' ' + nombre + '?';
 
             // Asignar valores a los campos ocultos del formulario.
             document.getElementById('input-dni').value = dni;

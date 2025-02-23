@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Establecer variables para la consulta.
         $titulo = 'Informe final aprobado';
-        $mensaje = 'Tu informe final ha sido aprobado por el profesor. Además, se ha enviado una notificación al responsable de las PPS para que revise todo el proceso y registre su aprobación.';
+        $mensaje = 'Tu profesor ha aprobado el informe final. Además, se ha enviado una notificación al responsable de las PPS para que revise todo el proceso y registre su aprobación.';
         $fecha_enviada = date("Y-m-d H:i:s");
 
         // Prepared statement.

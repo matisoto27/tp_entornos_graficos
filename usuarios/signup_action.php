@@ -158,8 +158,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Subject = 'Contraseña PPS';
-            $mail->Body = 'Tu contraseña para ingresar es: <b>' . $contrasena . '</b><br><br>¡Gracias por registrarte!';
-            $mail->AltBody = 'Tu contraseña para ingresar es: ' . $contrasena . '\n\n¡Gracias por registrarte!';
+            $mail->Body = 'A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:<br><br>Contraseña: <b>' . $contrasena . '</b><br><br>Recuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.<br><br>¡Gracias por registrarte!';
+            $mail->AltBody = 'A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:\n\nContraseña: ' . $contrasena . '\n\nRecuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.\n\n¡Gracias por registrarte!';
+
 
             // Enviar el correo.
             $mail->send();

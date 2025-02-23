@@ -132,23 +132,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         });
     </script>
     <script>
-        // Esperamos a que el documento esté cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionamos el toggle y el contenedor que queremos ocultar/mostrar
             const navbarToggle = document.querySelector('.navbar-toggler');
             const mainContainer = document.querySelector('main');
-
-            // Verificamos si ambos elementos existen
             if (navbarToggle && mainContainer) {
-                // Detectamos cuando se abre o se cierra el menú
                 const navbarCollapse = document.getElementById('navbarExample');
-
-                // Cuando el menú se muestra, ocultamos el contenedor 'main'
                 navbarCollapse.addEventListener('show.bs.collapse', function() {
                     mainContainer.style.display = 'none';
                 });
-
-                // Cuando el menú se oculta, mostramos el contenedor 'main'
                 navbarCollapse.addEventListener('hidden.bs.collapse', function() {
                     mainContainer.style.display = 'block';
                 });
