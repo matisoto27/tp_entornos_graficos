@@ -105,7 +105,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     while ($notificacion = $result->fetch_assoc()) {
                                         $contador++;
                                 ?>
-                                        <tr <?php if (empty($notificacion['fecha_recibida'])) echo 'class="table-danger"' ?> data-bs-toggle="modal" data-bs-target="#modal-notificacion" onclick="handleRowClick(<?php echo $notificacion['id_notificacion'] ?>, '<?php echo $notificacion['titulo'] ?>', '<?php echo $notificacion['mensaje'] ?>')">
+                                        <tr <?php if (empty($notificacion['fecha_recibida'])) echo 'class="table-danger"' ?> data-bs-toggle="modal" data-bs-target="#modal-notificacion" onclick="abrirModal('<?php echo $notificacion['id_notificacion'] ?>', '<?php echo $notificacion['titulo'] ?>', '<?php echo $notificacion['mensaje'] ?>')">
                                             <td><?php echo $notificacion['fecha_enviada'] ?></td>
                                             <td><?php echo $notificacion['titulo'] ?></td>
                                             <td><?php echo substr($notificacion['mensaje'], 0, 15) . (strlen($notificacion['mensaje']) > 15 ? '...' : '') ?></td>
@@ -209,7 +209,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function handleRowClick(idNotificacion, titulo, mensaje) {
+        function abrirModal(idNotificacion, titulo, mensaje) {
             document.getElementById('input-id-notificacion').value = idNotificacion;
             document.getElementById('modal-titulo').innerText = titulo;
             document.getElementById('modal-mensaje').innerText = mensaje;
