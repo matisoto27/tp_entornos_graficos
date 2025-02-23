@@ -59,17 +59,23 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 $stmt = $mysqli->prepare("SELECT u.dni, nombre, apellido, legajo, id_informe, original, nombre_archivo, fecha_subida, s.estado AS estado_informe, s.correcciones, s.final FROM usuarios AS u INNER JOIN alumnos AS a ON u.dni = a.dni INNER JOIN informes AS s ON a.dni = s.dni_alumno WHERE dni_profesor = ?");
 $stmt->bind_param("s", $dni);
 $stmt->execute();
-$result1 = $stmt->get_result();
+$result_informes = $stmt->get_result();
 
-// Recuperar todos los planes de trabajo e información de las solicitudes de inicio de los alumnos del profesor.
-$stmt = $mysqli->prepare("SELECT fecha_confirmacion_solicitud, fecha_plan_trabajo, legajo, nombre, apellido, archivo_plan_trabajo, u.dni FROM usuarios u INNER JOIN alumnos a ON u.dni = a.dni WHERE dni_profesor = ? AND fecha_plan_trabajo IS NOT NULL");
+// Recuperar todos los planes de trabajo de los alumnos del profesor.
+$stmt = $mysqli->prepare("SELECT fecha_plan_trabajo, legajo, nombre, apellido, archivo_plan_trabajo, u.dni FROM usuarios u INNER JOIN alumnos a ON u.dni = a.dni WHERE dni_profesor = ? AND fecha_plan_trabajo IS NOT NULL");
 $stmt->bind_param("s", $dni);
 $stmt->execute();
-$result2 = $stmt->get_result();
+$result_planes_trabajo = $stmt->get_result();
+
+// Recuperar todas las solicitudes de inicio de los alumnos del profesor.
+$stmt = $mysqli->prepare("SELECT fecha_confirmacion_solicitud, legajo, nombre, apellido, archivo_plan_trabajo, u.dni FROM usuarios u INNER JOIN alumnos a ON u.dni = a.dni WHERE dni_profesor = ? AND fecha_confirmacion_solicitud IS NOT NULL");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+$result_solicitudes_inicio = $stmt->get_result();
 
 // Mezclar solicitudes de inicio, planes de trabajo e informes en una misma lista.
 $alumnos = [];
-while ($informe = $result1->fetch_assoc()) {
+while ($informe = $result_informes->fetch_assoc()) {
     $alumnos[] = [
         'fecha_subida' => $informe['fecha_subida'],
         'legajo' => $informe['legajo'],
@@ -85,7 +91,7 @@ while ($informe = $result1->fetch_assoc()) {
         'tipo' => 'informe',
     ];
 }
-while ($alu = $result2->fetch_assoc()) {
+while ($alu = $result_planes_trabajo->fetch_assoc()) {
     $alumnos[] = [
         'fecha_subida' => $alu['fecha_plan_trabajo'],
         'legajo' => $alu['legajo'],
@@ -100,7 +106,8 @@ while ($alu = $result2->fetch_assoc()) {
         'final' => '-',
         'tipo' => 'plan_trabajo',
     ];
-
+}
+while ($alu = $result_solicitudes_inicio->fetch_assoc()) {
     $alumnos[] = [
         'fecha_subida' => $alu['fecha_confirmacion_solicitud'],
         'legajo' => $alu['legajo'],
