@@ -61,13 +61,13 @@ $stmt->bind_param("s", $dni);
 $stmt->execute();
 $result1 = $stmt->get_result();
 
-// Recuperar todos los planes de trabajo de los alumnos del profesor.
-$stmt = $mysqli->prepare("SELECT fecha_plan_trabajo, legajo, nombre, apellido, archivo_plan_trabajo, u.dni FROM usuarios u INNER JOIN alumnos a ON u.dni = a.dni WHERE dni_profesor = ? AND fecha_plan_trabajo IS NOT NULL");
+// Recuperar todos los planes de trabajo e información de las solicitudes de inicio de los alumnos del profesor.
+$stmt = $mysqli->prepare("SELECT fecha_confirmacion_solicitud, fecha_plan_trabajo, legajo, nombre, apellido, archivo_plan_trabajo, u.dni FROM usuarios u INNER JOIN alumnos a ON u.dni = a.dni WHERE dni_profesor = ? AND fecha_plan_trabajo IS NOT NULL");
 $stmt->bind_param("s", $dni);
 $stmt->execute();
 $result2 = $stmt->get_result();
 
-// Mezclar planes de trabajo e informes en una misma lista.
+// Mezclar solicitudes de inicio, planes de trabajo e informes en una misma lista.
 $alumnos = [];
 while ($informe = $result1->fetch_assoc()) {
     $alumnos[] = [
@@ -85,20 +85,35 @@ while ($informe = $result1->fetch_assoc()) {
         'tipo' => 'informe',
     ];
 }
-while ($plan_trabajo = $result2->fetch_assoc()) {
+while ($alu = $result2->fetch_assoc()) {
     $alumnos[] = [
-        'fecha_subida' => $plan_trabajo['fecha_plan_trabajo'],
-        'legajo' => $plan_trabajo['legajo'],
+        'fecha_subida' => $alu['fecha_plan_trabajo'],
+        'legajo' => $alu['legajo'],
         'id_informe' => '-',
-        'nombre' => $plan_trabajo['nombre'],
-        'apellido' => $plan_trabajo['apellido'],
-        'nombre_archivo' => $plan_trabajo['archivo_plan_trabajo'],
-        'dni' => $plan_trabajo['dni'],
+        'nombre' => $alu['nombre'],
+        'apellido' => $alu['apellido'],
+        'nombre_archivo' => $alu['archivo_plan_trabajo'],
+        'dni' => $alu['dni'],
         'original' => '-',
         'estado_informe' => '-',
         'correcciones' => '-',
         'final' => '-',
         'tipo' => 'plan_trabajo',
+    ];
+
+    $alumnos[] = [
+        'fecha_subida' => $alu['fecha_confirmacion_solicitud'],
+        'legajo' => $alu['legajo'],
+        'id_informe' => '-',
+        'nombre' => $alu['nombre'],
+        'apellido' => $alu['apellido'],
+        'nombre_archivo' => 'solicitud_inicio_' . strtolower($alu['apellido']) . '_' . strtolower($alu['nombre']) . '.pdf',
+        'dni' => $alu['dni'],
+        'original' => '-',
+        'estado_informe' => '-',
+        'correcciones' => '-',
+        'final' => '-',
+        'tipo' => 'solicitud_inicio',
     ];
 }
 usort($alumnos, function ($a, $b) {
@@ -172,9 +187,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php
-                                                } else {
+                                                } elseif ($alumno['tipo'] === 'informe') {
                                                 ?>
                                                     <a href="../../descargar_archivo.php?nombre-archivo=<?php echo $alumno['nombre_archivo'] ?>&es-informe=1">
+                                                        <?php echo $alumno['nombre_archivo'] ?>
+                                                    </a>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <a href="solicitud_inicio_pdf.php?dni=<?php echo $alumno['dni'] ?>">
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php
