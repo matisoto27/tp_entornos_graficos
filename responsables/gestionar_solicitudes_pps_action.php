@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Establecer variables para la consulta.
     $estado_solicitud = 'Confirmada';
     date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $fecha_confirmacion_solicitud = date("Y-m-d H:i:s");
+    $fecha_actual = date("Y-m-d H:i:s");
+    $fecha_confirmacion_solicitud = date("Y-m-d H:i:s", strtotime("-1 month", strtotime($fecha_actual)));
 
     // Abrir la conexión a la base de datos.
     include $_SERVER['DOCUMENT_ROOT'] . '/connection.php';

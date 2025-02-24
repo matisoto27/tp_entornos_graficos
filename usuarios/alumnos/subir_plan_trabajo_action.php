@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Establecer variables para la consulta.
         date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $fecha_plan_trabajo = date("Y-m-d H:i:s");
+        $fecha_actual = date("Y-m-d H:i:s");
+        $fecha_plan_trabajo = date("Y-m-d H:i:s", strtotime("-1 month", strtotime($fecha_actual)));
 
         // Prepared statement.
         $stmt = $mysqli->prepare("UPDATE alumnos SET archivo_plan_trabajo = ?, fecha_plan_trabajo = ? WHERE dni = ?");
