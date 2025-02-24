@@ -45,7 +45,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssss", $estado_solicitud, $fecha_confirmacion_solicitud, $dni_profesor, $dni_alumno);
     $stmt->execute();
 
+    // Establecer ID de la notificación para el alumno.
+    $stmt = $mysqli->prepare("SELECT COALESCE(MAX(id_notificacion), 0) + 1 AS id FROM notificaciones WHERE dni = ?");
+    $stmt->bind_param("s", $dni_alumno);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $notificacion = $result->fetch_assoc();
+    $id_notificacion = $notificacion['id'];
+
+    // Establecer variables para la consulta.
+    $titulo = "Solicitud Aprobada";
+    $mensaje = 'Su solicitud para iniciar las PPS ha sido aprobada. ¡Felicitaciones!';
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $fecha_enviada = date("Y-m-d H:i:s");
+
     // Prepared statement.
+    $stmt = $mysqli->prepare("INSERT INTO notificaciones (dni, id_notificacion, titulo, mensaje, fecha_enviada) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sisss", $dni_alumno, $id_notificacion, $titulo, $mensaje, $fecha_enviada);
+    $stmt->execute();
+
+    // Recuperar nombre y apellido del alumno.
     $stmt = $mysqli->prepare("SELECT nombre, apellido FROM usuarios WHERE dni = ?");
     $stmt->bind_param("s", $dni_alumno);
     $stmt->execute();
