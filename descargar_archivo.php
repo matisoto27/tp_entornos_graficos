@@ -1,4 +1,22 @@
 <?php
+
+// Inicializar sesión.
+session_start();
+
+// Validar sesión y rol.
+if (empty($_SESSION['rol']) || !in_array($_SESSION['rol'], ['profesores', 'responsables'])) {
+    $_SESSION['mensaje_error'] = "Rol inválido.";
+    header("Location: http://entornosgraficospps.infinityfreeapp.com/");
+    exit();
+}
+
+// Validar información de sesión.
+if (empty($_SESSION['dni']) && (empty($_SESSION['codigo']) || empty($_SESSION['nombre']) || empty($_SESSION['apellido']))) {
+    $_SESSION['mensaje_error'] = "La sesión ha caducado.";
+    header("Location: ../login.php");
+    exit();
+}
+
 // Validar si se reciben datos por GET.
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
