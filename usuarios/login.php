@@ -13,7 +13,7 @@ if (empty($_SESSION['rol']) || !in_array($_SESSION['rol'], ['alumnos', 'profesor
     exit();
 }
 
-// Validar sesión activa.
+// Validar información de sesión.
 if (!empty($_SESSION['dni'])) {
     header("Location: menu_principal.php");
     exit();

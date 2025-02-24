@@ -19,6 +19,9 @@ if (empty($_SESSION['dni'])) {
     $dni = $_SESSION['dni'];
 }
 
+// Eliminar respuestas guardadas.
+include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/reset_respuestas.php';
+
 // Abrir la conexión a la base de datos.
 include $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 

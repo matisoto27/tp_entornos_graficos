@@ -60,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_notificacion = $notificacion['id'];
 
     // Establecer variables para la consulta.
-    $titulo = "Has sido seleccionado como tutor";
-    $mensaje = $alumno['nombre'] . ' ' . $alumno['apellido'] . ' te ha seleccionado como su tutor para realizar las practicas profesionales supervisadas.';
+    $titulo = "Has sido seleccionado como tutor(a)";
+    $mensaje = $alumno['nombre'] . ' ' . $alumno['apellido'] . ' te ha seleccionado como su tutor(a) para realizar las practicas profesionales supervisadas.';
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $fecha_enviada = date("Y-m-d H:i:s");
 
