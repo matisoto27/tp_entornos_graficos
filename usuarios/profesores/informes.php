@@ -202,7 +202,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <a href="solicitud_inicio_pdf.php?dni=<?php echo $alumno['dni'] ?>" target="_blank">
+                                                    <a href="../../solicitud_inicio_pdf.php?dni=<?php echo $alumno['dni'] ?>" target="_blank">
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php

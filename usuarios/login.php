@@ -13,6 +13,14 @@ if (empty($_SESSION['rol']) || !in_array($_SESSION['rol'], ['alumnos', 'profesor
     exit();
 }
 
+// Destruir variables de sesión.
+unset($_SESSION['dni_su']);
+unset($_SESSION['nombre_su']);
+unset($_SESSION['apellido_su']);
+unset($_SESSION['fecha_nacimiento_su']);
+unset($_SESSION['email_su']);
+unset($_SESSION['repetir_email_su']);
+
 // Validar información de sesión.
 if (!empty($_SESSION['dni'])) {
     header("Location: menu_principal.php");

@@ -44,8 +44,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $repetir_email = quitarTildes(strtolower(trim($_POST['repetir-email'])));
     $rol = $_SESSION['rol'];
 
+    // Guardar respuestas.
+    $_SESSION['dni_su'] = $_POST['dni'];
+    $_SESSION['nombre_su'] = $_POST['nombre'];
+    $_SESSION['apellido_su'] = $_POST['apellido'];
+    $_SESSION['fecha_nacimiento_su'] = $_POST['fecha-nacimiento'];
+    $_SESSION['email_su'] = $_POST['email'];
+    $_SESSION['repetir_email_su'] = $_POST['repetir-email'];
+
     // Validar que el DNI tenga 8 dígitos.
     if (!preg_match('/^\d{8}$/', $dni)) {
+        unset($_SESSION['dni_su']);
         $_SESSION['mensaje_error'] = "El DNI debe tener 8 dígitos.";
         header("Location: signup.php");
         exit();
@@ -61,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     if ($row['total'] > 0) {
+        unset($_SESSION['dni_su']);
         $_SESSION['mensaje_error'] = "Ya existe un usuario con el DNI proporcionado.";
         header("Location: signup.php");
         exit();
@@ -68,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que el nombre solo contenga letras.
     if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/', $nombre)) {
+        unset($_SESSION['nombre_su']);
         $_SESSION['mensaje_error'] = "El nombre solo puede contener letras.";
         header("Location: signup.php");
         exit();
@@ -75,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que el apellido solo contenga letras.
     if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/', $apellido)) {
+        unset($_SESSION['apellido_su']);
         $_SESSION['mensaje_error'] = "El apellido solo puede contener letras.";
         header("Location: signup.php");
         exit();
@@ -84,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_actual = new DateTime();
     $edad = $fecha_actual->diff(new DateTime($fecha_nacimiento))->y;
     if ($edad < 18) {
+        unset($_SESSION['fecha_nacimiento_su']);
         $_SESSION['mensaje_error'] = "Debes ser mayor de 18 años para registrarte.";
         header("Location: signup.php");
         exit();
@@ -91,6 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que los correos electrónicos coincidan.
     if ($email !== $repetir_email) {
+        unset($_SESSION['email_su']);
+        unset($_SESSION['repetir_email_su']);
         $_SESSION['mensaje_error'] = "Los correos electrónicos no coinciden.";
         header("Location: signup.php");
         exit();
@@ -98,6 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar formato del correo electrónico.
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        unset($_SESSION['email_su']);
+        unset($_SESSION['repetir_email_su']);
         $_SESSION['mensaje_error'] = "El correo electrónico no tiene un formato válido.";
         header("Location: signup.php");
         exit();
@@ -184,6 +201,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $_SESSION['mensaje_exito'] = "¡Gracias por registrarte! Nuestro equipo administrativo responsable de las PPS verificará la información proporcionada. Luego, enviará a tu correo electrónico la contraseña que debes utilizar para iniciar sesión.";
     }
+
+    // Destruir variables de sesión.
+    unset($_SESSION['dni_su']);
+    unset($_SESSION['nombre_su']);
+    unset($_SESSION['apellido_su']);
+    unset($_SESSION['fecha_nacimiento_su']);
+    unset($_SESSION['email_su']);
+    unset($_SESSION['repetir_email_su']);
 
     // Cerrar la conexión a la base de datos y redireccionar.
     $mysqli->close();

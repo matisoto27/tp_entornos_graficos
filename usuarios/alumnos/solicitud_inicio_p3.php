@@ -184,6 +184,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sss", $titulo, $mensaje, $fecha_enviada);
     $stmt->execute();
 
+    // Destruir variables de sesión.
+    unset($_SESSION['legajo']);
+    unset($_SESSION['carrera']);
+    unset($_SESSION['dni_profesor']);
+    unset($_SESSION['nombre_empresa']);
+    unset($_SESSION['direccion_empresa']);
+    unset($_SESSION['telefono_empresa']);
+    unset($_SESSION['modalidad_trabajo']);
+    unset($_SESSION['nombre_jefe']);
+    unset($_SESSION['apellido_jefe']);
+    unset($_SESSION['email_jefe']);
+
     // Establecer mensaje de éxito y cerrar la conexión a la base de datos.
     $_SESSION['mensaje_exito'] = "Se ha enviado la solicitud de inicio con éxito.";
     $mysqli->close();

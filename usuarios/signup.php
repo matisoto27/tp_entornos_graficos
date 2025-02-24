@@ -21,6 +21,14 @@ if (!empty($_SESSION['mensaje_error'])) {
 
 // Lógica.
 $form_title = ($_SESSION['rol'] === 'alumnos') ? 'Alumno' : 'Profesor';
+
+// Respuestas guardadas.
+$dni = isset($_SESSION['dni_su']) ? $_SESSION['dni_su'] : '';
+$nombre = isset($_SESSION['nombre_su']) ? $_SESSION['nombre_su'] : '';
+$apellido = isset($_SESSION['apellido_su']) ? $_SESSION['apellido_su'] : '';
+$fecha_nacimiento = isset($_SESSION['fecha_nacimiento_su']) ? $_SESSION['fecha_nacimiento_su'] : '';
+$email = isset($_SESSION['email_su']) ? $_SESSION['email_su'] : '';
+$repetir_email = isset($_SESSION['repetir_email_su']) ? $_SESSION['repetir_email_su'] : '';
 ?>
 
 <!doctype html>
@@ -38,27 +46,27 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             <form method="POST" action="signup_action.php" class="mx-auto" style="width: 250px;">
                 <div class="mb-3">
                     <label for="input-dni" class="form-label">DNI</label>
-                    <input type="text" class="form-control" name="dni" id="input-dni">
+                    <input type="text" class="form-control" name="dni" id="input-dni" value="<?php echo $dni ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="input-nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="input-nombre">
+                    <input type="text" class="form-control" name="nombre" id="input-nombre" value="<?php echo $nombre ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="input-apellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" name="apellido" id="input-apellido">
+                    <input type="text" class="form-control" name="apellido" id="input-apellido" value="<?php echo $apellido ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="input-fecha-nacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" name="fecha-nacimiento" id="input-fecha-nacimiento">
+                    <input type="date" class="form-control" name="fecha-nacimiento" id="input-fecha-nacimiento" value="<?php echo $fecha_nacimiento ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="input-email" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" name="email" id="input-email">
+                    <input type="email" class="form-control" name="email" id="input-email" value="<?php echo $email ?>" required>
                 </div>
                 <div class="mb-4">
                     <label for="input-repetir-email" class="form-label">Confirmar Correo Electrónico</label>
-                    <input type="email" class="form-control" name="repetir-email" id="input-repetir-email">
+                    <input type="email" class="form-control" name="repetir-email" id="input-repetir-email" value="<?php echo $repetir_email ?>" required>
                 </div>
                 <div class="mb-4">
                     <button type="submit" class="btn btn-primary w-100">Finalizar</button>

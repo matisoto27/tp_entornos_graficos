@@ -4,14 +4,14 @@
 session_start();
 
 // Validar sesión y rol.
-if (empty($_SESSION['rol']) || $_SESSION['rol'] !== 'profesores') {
+if (empty($_SESSION['rol']) || !in_array($_SESSION['rol'], ['profesores', 'responsables'])) {
     $_SESSION['mensaje_error'] = "Rol inválido.";
     header("Location: http://entornosgraficospps.infinityfreeapp.com/");
     exit();
 }
 
 // Validar información de sesión.
-if (empty($_SESSION['dni'])) {
+if (empty($_SESSION['dni']) && (empty($_SESSION['codigo']) || empty($_SESSION['nombre']) || empty($_SESSION['apellido']))) {
     $_SESSION['mensaje_error'] = "La sesión ha caducado.";
     header("Location: ../login.php");
     exit();
@@ -49,6 +49,7 @@ ob_start();
 <html lang="en">
 
 <head>
+    <title><?php echo 'solicitud_inicio_' . strtolower($alumno['apellido']) . '_' . strtolower($alumno['nombre']) . '.pdf' ?></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -146,7 +147,7 @@ ob_start();
 
 <?php
 $html = ob_get_clean();
-require_once '../../librerias/dompdf/autoload.inc.php';
+require_once 'librerias/dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
@@ -157,5 +158,5 @@ $dompdf->setOptions($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('letter');
 $dompdf->render();
-$dompdf->stream('solicitud_inicio_' . strtolower($alumno['apellido']) . '_' . strtolower($alumno['nombre']) . '.pdf', array("Attachment" => true));
+$dompdf->stream('solicitud_inicio_' . strtolower($alumno['apellido']) . '_' . strtolower($alumno['nombre']) . '.pdf', array("Attachment" => false));
 ?>

@@ -51,8 +51,8 @@ $profesor = $result->fetch_assoc();
 $nombre_profesor = $profesor['nombre'];
 $apellido_profesor = $profesor['apellido'];
 
-// Recuperar plan de trabajo (tanto el archivo como la fecha en que se subió) y fecha_pps_aprobadas del alumno.
-$stmt = $mysqli->prepare("SELECT archivo_plan_trabajo, fecha_plan_trabajo, fecha_pps_aprobadas FROM alumnos WHERE dni = ?");
+// Recuperar solicitud de inicio, plan de trabajo (tanto el archivo como la fecha en que se subió) y fecha_pps_aprobadas del alumno.
+$stmt = $mysqli->prepare("SELECT fecha_confirmacion_solicitud, archivo_plan_trabajo, fecha_plan_trabajo, fecha_pps_aprobadas FROM alumnos WHERE dni = ?");
 $stmt->bind_param("s", $dni_alumno);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -133,6 +133,22 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
         <?php
+        if (!empty($alumno['fecha_confirmacion_solicitud'])) {
+        ?>
+            <div class="d-flex flex-row mb-3">
+                <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
+                    <div class="p-2">Solicitud de Inicio</div>
+                    <div class="p-2">
+                        Nombre del archivo:
+                        <a href="../solicitud_inicio_pdf.php?dni=<?php echo $dni_alumno ?>" target="_blank">
+                            <?php echo 'solicitud_inicio_' . strtolower($apellido) . '_' . strtolower($nombre) . '.pdf' ?>
+                        </a>
+                    </div>
+                    <div class="p-2">Fecha de confirmación: <?php echo $alumno['fecha_confirmacion_solicitud'] ?></div>
+                </div>
+            </div>
+        <?php
+        }
         if (!empty($alumno['fecha_plan_trabajo'])) {
         ?>
             <div class="d-flex flex-row mb-3">
@@ -148,8 +164,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 </div>
             </div>
             <?php
-        } else {
-            // Mostrar algo.
         }
         foreach ($informes as $i) {
             if ($i['alumno'] === 1) {
