@@ -50,8 +50,16 @@ $result_count2 = $stmt->get_result();
 $row_count2 = $result_count2->fetch_assoc();
 $total2 = $row_count2['total'];
 
+// Contar cantidad de solicitudes de inicio.
+$stmt = $mysqli->prepare("SELECT COUNT(*) AS total FROM alumnos WHERE dni_profesor = ? AND fecha_confirmacion_solicitud IS NOT NULL");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+$result_count3 = $stmt->get_result();
+$row_count3 = $result_count3->fetch_assoc();
+$total3 = $row_count3['total'];
+
 // Contar el total de registros.
-$total_registros = $total1 + $total2;
+$total_registros = $total1 + $total2 + $total3;
 $total_paginas = ceil($total_registros / $registros_por_pagina);
 // Fin Paginación.
 
