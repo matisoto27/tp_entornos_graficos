@@ -19,7 +19,7 @@ if ($result_notificaciones->num_rows > 0) {
                     </button>
                     <button class="btn" style="background-color: white; border: 1px solid rgba(0,0,0, 0.4);" id="home-button"><a href="/usuarios/menu_principal.php" style="text-decoration: none; color: unset;">Volver al Inicio</a></button>
                     <div class="collapse navbar-collapse d-lg-flex" id="navbarExample">
-                        <a class="navbar-brand col-lg-2 me-0" href="/usuarios/menu_principal.php"><img src="/usuarios/logo.png" alt="Logo" height="40"></a>
+                        <a class="navbar-brand col-lg-2 me-0" href="/usuarios/menu_principal.php"><img src="/usuarios/logo.png" alt="UTN Universidad Tecnológica Nacional" height="40"></a>
                         <ul class="navbar-nav col-lg-8 justify-content-lg-center align-items-lg-center">
                             <li class="nav-item">
                                 <a class="nav-link <?php if (empty($href_pps)) echo 'disabled' ?>" href="<?php echo $href_pps ?>">Tramites PPS</a>

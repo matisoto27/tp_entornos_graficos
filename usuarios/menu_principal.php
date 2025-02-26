@@ -138,6 +138,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+        function ajustarFooter() {
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            const headerHeight = header.offsetHeight;
+            const mainHeight = main.offsetHeight;
+            const footerHeight = footer.offsetHeight;
+            const principal = document.querySelector('.principal');
+            const bodyHeight = document.documentElement.clientHeight;
+
+            if (bodyHeight > 928 && headerHeight + mainHeight + footerHeight + 48 + 49 < bodyHeight) {
+                let marginBottom = bodyHeight - (headerHeight + mainHeight + footerHeight + 48 + 49);
+                principal.style.marginBottom = `${49 + marginBottom}px`;
+            }
+        }
+        window.addEventListener('load', ajustarFooter);
+    </script>
 
     <?php
     // Cerrar la conexión a la base de datos.
