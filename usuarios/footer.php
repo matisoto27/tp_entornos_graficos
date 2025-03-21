@@ -1,6 +1,11 @@
-<footer class="py-3" style="background-color: white;">
+<footer class="py-3 bg-white">
     <div class="px-2">
-        <p class="text-center border-bottom py-3 mb-0">¿Tienes alguna duda o necesitas ayuda? ¡Contáctanos! <span class="text-primary">eg.responsable.pps@gmail.com</span></p>
+        <div class="d-flex justify-content-center">
+            <p class="border-bottom py-3 mb-0 text-center w-100">¿Tienes alguna duda o necesitas ayuda? <a href="contacto.php">¡Contáctanos!</a></p>
+        </div>
         <p class="text-center pt-4 pb-3 mb-0">UTN Facultad Regional Rosario</p>
+        <div class="d-flex justify-content-center">
+            <a href="mapadelsitio.php" class="btn btn-secondary text-light text-decoration-none">Ver Mapa del Sitio</a>
+        </div>
     </div>
 </footer>

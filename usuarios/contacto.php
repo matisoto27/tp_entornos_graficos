@@ -41,7 +41,7 @@ if ($_SESSION['rol'] === "alumnos") {
 }
 $href_lista_profesores = '/usuarios/lista_profesores.php';
 $href_notificaciones = '/usuarios/notificaciones.php';
-$href_modificar_perfil = '/usuarios/modificar_perfil.php';
+$href_modificar_perfil = '';
 $href_cerrar_sesion = '/cerrar_sesion.php';
 
 // Validar mensajes.
@@ -71,39 +71,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main>
-        <div class="container d-flex align-items-center p-5 bg-light principal">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img1.jpg" alt="Solicitud de inicio completada">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">1. Completa la solicitud de inicio para indicar los datos esenciales y empezar tus PPS.</p>
-                        </div>
-                    </div>
+        <div class="container background-border form-container">
+            <h2 class="py-4 text-center">Contáctanos</h2>
+            <form method="POST" action="contacto_action.php">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img2.jpg" alt="Carga de archivo en el sistema">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">2. Sube un archivo pdf sobre tu plan de trabajo. Incluye mas informacion de la organizacion y un esquema general de las actividades a realizar durante tus PPS.</p>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img3.jpg" alt="Profesor ayudando a una alumna">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">3. Sigue semana a semana los avances de tus PPS, reflexionando sobre los aprendizajes adquiridos en cada uno de ellos.</p>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
                 </div>
-            </div>
+                <p class="text-center">Si tienes alguna duda o pregunta, llena el formulario y nos pondremos en contacto contigo.</p>
+                <div class="mt-4 pb-4 w-100 text-center">
+                    <button type="submit" class="btn btn-primary" style="width: 250px;">Enviar</button>
+                </div>
+            </form>
         </div>
     </main>
     <?php
@@ -141,21 +128,21 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script>
         function ajustarFooter() {
             const header = document.querySelector('header');
-            const principal = document.querySelector('.principal');
+            const main = document.querySelector('main');
             const footer = document.querySelector('footer');
             const bodyHeight = document.documentElement.clientHeight;
             const headerHeight = header.offsetHeight;
-            const principalHeight = principal.clientHeight;
+            const mainHeight = main.clientHeight;
             const footerHeight = footer.offsetHeight;
-            let espacioRestante = bodyHeight - (headerHeight + principalHeight + footerHeight);
+            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
             if (espacioRestante > 0) {
-                let mtPrincipal = espacioRestante/2;
-                let mbPrincipal = espacioRestante/2;
-                principal.style.marginTop = `${mtPrincipal}px`;
-                principal.style.marginBottom = `${mbPrincipal}px`;
+                let mtMain = espacioRestante / 2;
+                let mbMain = espacioRestante / 2;
+                main.style.marginTop = `${mtMain}px`;
+                main.style.marginBottom = `${mbMain}px`;
             } else {
-                principal.style.marginTop = `${15}px`;
-                principal.style.marginBottom = `${15}px`;
+                main.style.marginTop = `${15}px`;
+                main.style.marginBottom = `${15}px`;
             }
         }
         window.addEventListener('load', ajustarFooter);
