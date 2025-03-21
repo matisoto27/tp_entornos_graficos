@@ -322,6 +322,14 @@ BACKGROUND BORDER && FORM CONTAINER
     }
 }
 
+@media (min-width: 768px) {
+
+    #sitemap-enlaces .col-12,
+    #sitemap-profesor .col-12 {
+        width: 20%;
+    }
+}
+
 @media (min-width: 992px) {
     #home-button {
         display: none;

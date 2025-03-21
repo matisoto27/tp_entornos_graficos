@@ -82,7 +82,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main>
-        <div class="mt-5 container background-border form-container">
+        <div class="container background-border form-container">
             <h3 class="text-center pt-4 mb-4">Modificar Perfil</h3>
             <form method="POST" action="modificar_perfil_action.php" class="mx-auto" style="width: 280px;">
                 <div class="mb-3">
@@ -115,6 +115,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </form>
         </div>
     </main>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
+    ?>
     <!-- Modal -->
     <?php
     if (!empty($mensaje)) {
@@ -177,20 +180,29 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             inputContrasena.addEventListener('input', habilitarRepetirContrasena);
             inputRepetirContrasena.addEventListener('input', actualizarEstadoBoton);
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggle = document.querySelector('.navbar-toggler');
-            const mainContainer = document.querySelector('main');
-            if (navbarToggle && mainContainer) {
-                const navbarCollapse = document.getElementById('navbarExample');
-                navbarCollapse.addEventListener('show.bs.collapse', function() {
-                    mainContainer.style.display = 'none';
-                });
-                navbarCollapse.addEventListener('hidden.bs.collapse', function() {
-                    mainContainer.style.display = 'block';
-                });
+    </script>
+    <script>
+        function ajustarFooter() {
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            const bodyHeight = document.documentElement.clientHeight;
+            const headerHeight = header.offsetHeight;
+            const mainHeight = main.clientHeight;
+            const footerHeight = footer.offsetHeight;
+            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
+            if (espacioRestante > 0) {
+                let mtMain = espacioRestante / 2;
+                let mbMain = espacioRestante / 2;
+                main.style.marginTop = `${mtMain}px`;
+                main.style.marginBottom = `${mbMain}px`;
+            } else {
+                main.style.marginTop = `${15}px`;
+                main.style.marginBottom = `${15}px`;
             }
-        });
+        }
+        window.addEventListener('load', ajustarFooter);
+        window.addEventListener('resize', ajustarFooter);
     </script>
 
     <?php

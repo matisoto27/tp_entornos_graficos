@@ -84,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main>
-        <div class="mt-5 container background-border">
+        <div class="container background-border">
             <div class="row pt-4 mb-3">
                 <div class="col">
                     <h2 class="text-center">Notificaciones</h2>
@@ -192,6 +192,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </main>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
+    ?>
     <!-- Modal -->
     <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -233,19 +236,27 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggle = document.querySelector('.navbar-toggler');
-            const mainContainer = document.querySelector('main');
-            if (navbarToggle && mainContainer) {
-                const navbarCollapse = document.getElementById('navbarExample');
-                navbarCollapse.addEventListener('show.bs.collapse', function() {
-                    mainContainer.style.display = 'none';
-                });
-                navbarCollapse.addEventListener('hidden.bs.collapse', function() {
-                    mainContainer.style.display = 'block';
-                });
+        function ajustarFooter() {
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            const bodyHeight = document.documentElement.clientHeight;
+            const headerHeight = header.offsetHeight;
+            const mainHeight = main.clientHeight;
+            const footerHeight = footer.offsetHeight;
+            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
+            if (espacioRestante > 0) {
+                let mtMain = espacioRestante / 2;
+                let mbMain = espacioRestante / 2;
+                main.style.marginTop = `${mtMain}px`;
+                main.style.marginBottom = `${mbMain}px`;
+            } else {
+                main.style.marginTop = `${15}px`;
+                main.style.marginBottom = `${15}px`;
             }
-        });
+        }
+        window.addEventListener('load', ajustarFooter);
+        window.addEventListener('resize', ajustarFooter);
     </script>
 
     <?php

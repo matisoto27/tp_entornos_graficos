@@ -63,38 +63,33 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <h1>Mapa del Sitio Web</h1>
                 </div>
             </div>
-
-            <!-- Enlace a la página principal -->
             <div class="row mb-4">
                 <div class="col text-center">
                     <a href="/usuarios/menu_principal.php" class="btn btn-outline-primary w-100">Página Principal</a>
                 </div>
             </div>
-
-            <!-- Enlaces a los 4 botones -->
-            <div class="row pt-4 <?php echo ($_SESSION['rol'] === 'profesores') ? 'mb-4' : 'pb-4'; ?>">
-                <div class="col-12 col-md-3 mb-3">
+            <div class="row pt-4 <?php echo ($_SESSION['rol'] === 'profesores') ? 'mb-4' : 'pb-4'; ?>" id="sitemap-enlaces">
+                <div class="col-12 mb-3">
                     <a href="<?php echo $href_pps ?>" class="btn btn-outline-primary w-100">Trámites PPS</a>
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 mb-3">
                     <a href="<?php echo $href_lista_profesores ?>" class="btn btn-outline-primary w-100">Lista de Profesores</a>
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 mb-3">
                     <a href="<?php echo $href_notificaciones ?>" class="btn btn-outline-primary w-100">Notificaciones</a>
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 mb-3">
                     <a href="<?php echo $href_modificar_perfil ?>" class="btn btn-outline-primary w-100">Mi Perfil</a>
                 </div>
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 mb-3">
                     <a href="/usuarios/contacto.php" class="btn btn-outline-primary w-100">¡Contáctanos!</a>
                 </div>
             </div>
-
             <?php
             if ($_SESSION['rol'] === 'profesores') {
             ?>
-                <div class="row pb-4">
-                    <div class="col-12 col-md-3 text-center">
+                <div class="row pb-4" id="sitemap-profesor">
+                    <div class="col-12 text-center">
                         <a href="/usuarios/profesores/informe_alumnos_ciclo_lectivo.php" class="btn btn-outline-primary w-100">Buscar alumnos tutorizados en un ciclo lectivo determinado</a>
                     </div>
                 </div>
