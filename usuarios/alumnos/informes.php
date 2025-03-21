@@ -153,7 +153,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main>
-        <div class="mt-5 container background-border">
+        <div class="container background-border">
             <div class="row pt-4 mb-3">
                 <div class="col">
                     <h2 class="text-center">Informes Semanales</h2>
@@ -303,6 +303,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </main>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
+    ?>
     <!-- Modal -->
     <div class="modal fade" id="modal-correcciones" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
@@ -390,6 +393,29 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 });
             }
         });
+    </script>
+    <script>
+        function ajustarFooter() {
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            const bodyHeight = document.documentElement.clientHeight;
+            const headerHeight = header.offsetHeight;
+            const mainHeight = main.clientHeight;
+            const footerHeight = footer.offsetHeight;
+            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
+            if (espacioRestante > 0) {
+                let mtMain = espacioRestante / 2;
+                let mbMain = espacioRestante / 2;
+                main.style.marginTop = `${mtMain}px`;
+                main.style.marginBottom = `${mbMain}px`;
+            } else {
+                main.style.marginTop = `${15}px`;
+                main.style.marginBottom = `${15}px`;
+            }
+        }
+        window.addEventListener('load', ajustarFooter);
+        window.addEventListener('resize', ajustarFooter);
     </script>
 
     <?php

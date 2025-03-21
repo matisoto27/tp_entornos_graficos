@@ -54,7 +54,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main>
-        <div class="mt-5 container">
+        <div class="container">
             <div class="alert alert-info" role="alert">
                 <h4 class="alert-heading">Solicitud Enviada</h4>
                 <p>Su solicitud para iniciar las PPS fue enviada. Aún está bajo revisión y se encuentra en estado pendiente.</p>
@@ -63,9 +63,35 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
         </div>
     </main>
+    <?php
+    include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
+    ?>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+        function ajustarFooter() {
+            const header = document.querySelector('header');
+            const main = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            const bodyHeight = document.documentElement.clientHeight;
+            const headerHeight = header.offsetHeight;
+            const mainHeight = main.clientHeight;
+            const footerHeight = footer.offsetHeight;
+            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
+            if (espacioRestante > 0) {
+                let mtMain = espacioRestante / 2;
+                let mbMain = espacioRestante / 2;
+                main.style.marginTop = `${mtMain}px`;
+                main.style.marginBottom = `${mbMain}px`;
+            } else {
+                main.style.marginTop = `${15}px`;
+                main.style.marginBottom = `${15}px`;
+            }
+        }
+        window.addEventListener('load', ajustarFooter);
+        window.addEventListener('resize', ajustarFooter);
+    </script>
 </body>
 
 </html>
