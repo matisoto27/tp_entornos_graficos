@@ -116,7 +116,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <div class="mt-sm-5 container background-border min-vh-xs-100 p-4" style="max-width: 700px;">
+    <div class="mt-sm-5 container br-class bg-white min-vh-xs-100 p-4" style="max-width: 700px;">
         <div class="d-flex flex-row justify-content-center mb-3">
             <div class="d-flex flex-column">
                 <h2>Trazabilidad de PPS</h2>

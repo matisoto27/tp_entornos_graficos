@@ -55,7 +55,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 <body>
     <!-- Centrado vertical y horizontal -->
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container background-border form-container min-vh-xs-100">
+        <div class="container br-class bg-white form-container min-vh-xs-100">
             <h3 class="text-center mt-4 mb-2"><?php echo $form_title ?></h3>
             <h3 class="text-center mb-4">Iniciar Sesión</h3>
             <form method="POST" action="login_validar.php" class="mx-auto" style="width: 250px;">

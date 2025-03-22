@@ -169,12 +169,12 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
-<body>
+<body class="d-flex flex-column">
     <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
-    <main>
-        <div class="container background-border">
+    <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
+        <div class="container br-class alt-background">
             <div class="row pt-4 mb-3">
                 <div class="col">
                     <h2 class="text-center">Informes Semanales</h2>
@@ -183,7 +183,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             <div class="row">
                 <div class="col">
                     <div class="table-responsive mb-4">
-                        <table class="table table-striped text-center">
+                        <table class="table text-center">
                             <thead>
                                 <tr>
                                     <th scope="col" class="col-2">ID</th>
@@ -474,29 +474,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 });
             }
         });
-    </script>
-    <script>
-        function ajustarFooter() {
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const footer = document.querySelector('footer');
-            const bodyHeight = document.documentElement.clientHeight;
-            const headerHeight = header.offsetHeight;
-            const mainHeight = main.clientHeight;
-            const footerHeight = footer.offsetHeight;
-            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
-            if (espacioRestante > 0) {
-                let mtMain = espacioRestante / 2;
-                let mbMain = espacioRestante / 2;
-                main.style.marginTop = `${mtMain}px`;
-                main.style.marginBottom = `${mbMain}px`;
-            } else {
-                main.style.marginTop = `${15}px`;
-                main.style.marginBottom = `${15}px`;
-            }
-        }
-        window.addEventListener('load', ajustarFooter);
-        window.addEventListener('resize', ajustarFooter);
     </script>
 
     <?php

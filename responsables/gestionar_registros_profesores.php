@@ -52,7 +52,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 <body>
     <!-- Centrado vertical y horizontal -->
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container background-border min-vh-xs-100">
+        <div class="container br-class bg-white min-vh-xs-100">
             <div class="row pt-4 mb-3">
                 <div class="col">
                     <h2 class="text-center">Solicitudes de Registro</h2>

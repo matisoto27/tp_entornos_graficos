@@ -10,7 +10,7 @@
 
 body {
     background: #1c1c1c;
-    min-height: 100vh;
+    height: 100vh;
     overflow-x: hidden;
 }
 
@@ -25,6 +25,10 @@ button {
 table {
     margin-bottom: 0 !important;
     min-width: 1000px;
+}
+
+.alt-background {
+    background-color: #f8f9fa !important;
 }
 
 .btn-success {
@@ -166,10 +170,6 @@ INDEX
 MENU PRINCIPAL
 */
 
-.principal {
-    border-radius: 20px;
-}
-
 .navbar {
     border-radius: 50px;
     padding: 10px 5px 10px 25px;
@@ -266,8 +266,7 @@ span.icon {
 BACKGROUND BORDER && FORM CONTAINER
 */
 
-.background-border {
-    background-color: white;
+.br-class {
     border-radius: 20px;
 }
 
@@ -304,7 +303,7 @@ BACKGROUND BORDER && FORM CONTAINER
         min-height: 100vh;
     }
 
-    .background-border {
+    .br-class {
         border-radius: 0;
     }
 

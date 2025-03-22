@@ -41,7 +41,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 <body>
     <!-- Centrado vertical y horizontal -->
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container background-border form-container min-vh-xs-100">
+        <div class="container br-class bg-white form-container min-vh-xs-100">
             <h3 class="text-center my-4">Registrar <?php echo $form_title ?></h3>
             <form method="POST" action="signup_action.php" class="mx-auto" style="width: 250px;">
                 <div class="mb-3">

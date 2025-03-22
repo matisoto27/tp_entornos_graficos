@@ -66,12 +66,12 @@ if (!empty($_SESSION['mensaje_error'])) {
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
-<body>
+<body class="d-flex flex-column">
     <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
-    <main>
-        <div class="container d-flex align-items-center p-5 bg-light principal">
+    <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
+        <div class="container br-class alt-background d-flex align-items-center p-5">
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <div class="card">
@@ -138,29 +138,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script>
-        function ajustarFooter() {
-            const header = document.querySelector('header');
-            const principal = document.querySelector('.principal');
-            const footer = document.querySelector('footer');
-            const bodyHeight = document.documentElement.clientHeight;
-            const headerHeight = header.offsetHeight;
-            const principalHeight = principal.clientHeight;
-            const footerHeight = footer.offsetHeight;
-            let espacioRestante = bodyHeight - (headerHeight + principalHeight + footerHeight);
-            if (espacioRestante > 0) {
-                let mtPrincipal = espacioRestante/2;
-                let mbPrincipal = espacioRestante/2;
-                principal.style.marginTop = `${mtPrincipal}px`;
-                principal.style.marginBottom = `${mbPrincipal}px`;
-            } else {
-                principal.style.marginTop = `${15}px`;
-                principal.style.marginBottom = `${15}px`;
-            }
-        }
-        window.addEventListener('load', ajustarFooter);
-        window.addEventListener('resize', ajustarFooter);
-    </script>
 
     <?php
     // Cerrar la conexión a la base de datos.

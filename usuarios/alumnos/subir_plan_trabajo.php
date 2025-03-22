@@ -49,12 +49,12 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
-<body>
+<body class="d-flex flex-column">
     <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
-    <main>
-        <div class="container background-border upload-container">
+    <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
+        <div class="container br-class alt-background upload-container">
             <h2 class="text-center pt-4 mb-4">Subir Plan de Trabajo</h2>
             <form method="POST" action="subir_plan_trabajo_action.php" enctype="multipart/form-data" class="mx-auto">
                 <div class="mb-4">
@@ -81,29 +81,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 submitButton.setAttribute('disabled', 'true');
             }
         });
-    </script>
-    <script>
-        function ajustarFooter() {
-            const header = document.querySelector('header');
-            const main = document.querySelector('main');
-            const footer = document.querySelector('footer');
-            const bodyHeight = document.documentElement.clientHeight;
-            const headerHeight = header.offsetHeight;
-            const mainHeight = main.clientHeight;
-            const footerHeight = footer.offsetHeight;
-            let espacioRestante = bodyHeight - (headerHeight + mainHeight + footerHeight);
-            if (espacioRestante > 0) {
-                let mtMain = espacioRestante / 2;
-                let mbMain = espacioRestante / 2;
-                main.style.marginTop = `${mtMain}px`;
-                main.style.marginBottom = `${mbMain}px`;
-            } else {
-                main.style.marginTop = `${15}px`;
-                main.style.marginBottom = `${15}px`;
-            }
-        }
-        window.addEventListener('load', ajustarFooter);
-        window.addEventListener('resize', ajustarFooter);
     </script>
 
     <?php

@@ -34,7 +34,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 <body>
     <!-- Centrado vertical y horizontal -->
     <div class="d-flex justify-content-center align-items-center min-vh-100" id="trazabilidad-pps">
-        <div class="container background-border form-container">
+        <div class="container br-class bg-white form-container">
             <h2 class="text-center my-4">Trazabilidad de PPS</h2>
             <form method="POST" action="trazabilidad_pps_action.php" class="mx-auto" style="width: 250px;">
                 <div class="mb-4">
