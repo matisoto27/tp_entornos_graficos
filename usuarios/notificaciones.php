@@ -46,7 +46,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 
 // Paginación.
 // Definir la cantidad de registros por página.
-$registros_por_pagina = 7;
+$registros_por_pagina = 5;
 // Determinar la página actual.
 if (isset($_GET['pagina']) && is_numeric($_GET['pagina'])) {
     $pagina_actual = $_GET['pagina'];

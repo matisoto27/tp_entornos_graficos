@@ -41,7 +41,7 @@ if ($_SESSION['rol'] === "alumnos") {
 }
 $href_lista_profesores = '/usuarios/lista_profesores.php';
 $href_notificaciones = '/usuarios/notificaciones.php';
-$href_modificar_perfil = '';
+$href_modificar_perfil = '/usuarios/modificar_perfil.php';
 $href_cerrar_sesion = '/cerrar_sesion.php';
 
 // Validar mensajes.
@@ -73,7 +73,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <main>
         <div class="container background-border form-container">
             <h2 class="py-4 text-center">Contáctanos</h2>
-            <form method="POST" action="contacto_action.php">
+            <form method="POST" action="contacto_action.php" class="mx-auto" style="width: 300px;">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -84,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 </div>
                 <div class="mb-3">
                     <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                    <textarea class="form-control" style="resize: none;" id="mensaje" name="mensaje" rows="4" required></textarea>
                 </div>
                 <p class="text-center">Si tienes alguna duda o pregunta, llena el formulario y nos pondremos en contacto contigo.</p>
                 <div class="mt-4 pb-4 w-100 text-center">

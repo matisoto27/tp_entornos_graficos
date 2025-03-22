@@ -22,6 +22,27 @@ if (empty($_SESSION['dni'])) {
 // Abrir la conexión a la base de datos.
 include $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 
+// Paginación.
+// Definir la cantidad de registros por página.
+$registros_por_pagina = 4;
+// Determinar la página actual.
+if (isset($_GET['pagina']) && is_numeric($_GET['pagina'])) {
+    $pagina_actual = $_GET['pagina'];
+} else {
+    $pagina_actual = 1;
+}
+// Calcular el desplazamiento (offset) de los registros.
+$offset = ($pagina_actual - 1) * $registros_por_pagina;
+// Contar el total de registros.
+$stmt = $mysqli->prepare("SELECT COUNT(*) AS total FROM informes WHERE dni_alumno = ?");
+$stmt->bind_param("s", $dni);
+$stmt->execute();
+$result_count = $stmt->get_result();
+$row_count = $result_count->fetch_assoc();
+$total_registros = $row_count['total'];
+$total_paginas = ceil($total_registros / $registros_por_pagina);
+// Fin Paginación.
+
 // Validar acceso autorizado.
 $stmt = $mysqli->prepare("SELECT * FROM alumnos WHERE dni = ?");
 $stmt->bind_param("s", $dni);
@@ -42,7 +63,7 @@ $result = $stmt->get_result();
 $alumno = $result->fetch_assoc();
 
 // Buscar todos los informes.
-$stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? ORDER BY fecha_subida");
+$stmt = $mysqli->prepare("SELECT * FROM informes WHERE dni_alumno = ? ORDER BY fecha_subida DESC LIMIT $offset, $registros_por_pagina");
 $stmt->bind_param("s", $dni);
 $stmt->execute();
 
@@ -173,8 +194,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                             </thead>
                             <tbody>
                                 <?php
+                                $contador = 0;
                                 if ($informes_result->num_rows > 0) {
                                     while ($informe = $informes_result->fetch_assoc()) {
+                                        $contador++;
                                 ?>
                                         <tr>
                                             <th scope="row"><?php echo $informe['id_informe'] ?></th>
@@ -217,6 +240,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                 }
                                                 ?>
                                             </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    // Rellenar las filas restantes si no hay suficientes registros.
+                                    while ($contador < $registros_por_pagina) {
+                                        $contador++;
+                                    ?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     <?php
                                     }
@@ -299,6 +334,52 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                         }
                     }
                     ?>
+                </div>
+            </div>
+            <div class="row pb-4">
+                <div class="col">
+                    <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
+                        <ul class="pagination justify-content-center" style="margin-bottom: 0;">
+                            <!-- Paginación: Anterior -->
+                            <?php if ($pagina_actual > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>" aria-label="Previous">
+                                        <span aria-hidden="true">Anterior</span>
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="page-item disabled">
+                                    <span class="page-link">Anterior</span>
+                                </li>
+                            <?php endif; ?>
+
+                            <!-- Paginación: Mostrar páginas -->
+                            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                                <?php if ($i == $pagina_actual): ?>
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link"><?php echo $i; ?></span>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+
+                            <!-- Paginación: Siguiente -->
+                            <?php if ($pagina_actual < $total_paginas): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>" aria-label="Next">
+                                        <span aria-hidden="true">Siguiente</span>
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="page-item disabled">
+                                    <span class="page-link">Siguiente</span>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

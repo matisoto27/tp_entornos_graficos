@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($final == 1) {
 
         // Establecer ID de la notificación.
-        $stmt = $mysqli->prepare("SELECT MAX(id_notificacion) AS id FROM notificaciones WHERE dni = ?");
+        $stmt = $mysqli->prepare("SELECT COALESCE(MAX(id_notificacion), 0) + 1 AS id FROM notificaciones WHERE dni = ?");
         $stmt->bind_param("s", $dni_alumno);
         $stmt->execute();
         $result = $stmt->get_result();
