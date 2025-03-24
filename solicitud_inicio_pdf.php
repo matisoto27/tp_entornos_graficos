@@ -46,7 +46,7 @@ ob_start();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <title><?php echo 'solicitud_inicio_' . strtolower($alumno['apellido']) . '_' . strtolower($alumno['nombre']) . '.pdf' ?></title>

@@ -60,7 +60,7 @@ if (!empty($_SESSION['mensaje_error'])) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -72,7 +72,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background form-container">
-            <h2 class="py-4 text-center">Contáctanos</h2>
+            <h1 class="py-4 text-center">Contáctanos</h1>
             <form method="POST" action="contacto_action.php" class="mx-auto" style="width: 300px;">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>

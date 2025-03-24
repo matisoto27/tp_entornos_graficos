@@ -32,7 +32,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -44,7 +44,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background form-container">
-            <h2 class="text-center pt-4 mb-4">Buscar Alumnos</h2>
+            <h1 class="text-center pt-4 mb-4">Buscar Alumnos</h1>
             <form method="POST" action="informe_alumnos_ciclo_lectivo_action.php" class="mx-auto" style="width: 230px;">
                 <div class="mb-4">
                     <input list="lista-ciclos-lectivos" class="form-control" name="ciclo-lectivo" id="input-ciclo-lectivo" onchange="actualizarDni()" placeholder="Seleccionar un Ciclo Lectivo" required>

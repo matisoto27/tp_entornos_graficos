@@ -78,7 +78,7 @@ $dni_profesor = isset($_SESSION['dni_profesor']) ? $_SESSION['dni_profesor'] : '
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -90,8 +90,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background form-container">
-            <h3 class="text-center pt-4 mb-2">Solicitud de Inicio PPS</h3>
-            <h4 class="text-center mb-4">Datos Personales</h4>
+            <h1 class="text-center pt-4 mb-2">Solicitud de Inicio PPS P.1</h1>
+            <h2 class="text-center mb-4">Datos Personales</h2>
             <form method="POST" action="solicitud_inicio_p2.php" class="mx-auto" style="width: 300px;">
                 <div class="mb-3">
                     <label for="input-legajo" class="form-label">Legajo</label>

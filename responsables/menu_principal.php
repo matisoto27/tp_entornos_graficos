@@ -36,28 +36,29 @@ if (!empty($_SESSION['mensaje_error'])) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <!-- Centrado vertical y horizontal -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container list-container">
-            <h3 class="text-center my-4">¡Bienvenido/a <span><?php echo $nombre . ' ' . $apellido ?></span>!</h3>
-            <div class="list-group text-center">
-                <a href="alta_baja_profesores.php" class="list-group-item list-group-item-action mb-2">Alta/Baja Profesores</a>
-                <a href="gestionar_solicitudes_pps.php" class="list-group-item list-group-item-action mb-2">Gestionar Solicitudes PPS</a>
-                <a href="gestionar_registros_profesores.php" class="list-group-item list-group-item-action mb-2">Gestionar Registros de Profesores</a>
-                <a href="trazabilidad_pps.php" class="list-group-item list-group-item-action mb-2">Trazabilidad PPS de un Alumno</a>
-                <a href="modificar_perfil.php" class="list-group-item list-group-item-action mb-2">Modificar mi Perfil</a>
-                <a href="notificaciones_sistema.php" class="list-group-item list-group-item-action mb-2">Notificaciones del Sistema</a>
-                <a href="../cerrar_sesion.php" class="list-group-item list-group-item-action mb-4">Cerrar Sesión</a>
+    <main>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="container list-container">
+                <h1 class="text-center text-light my-4">¡Bienvenido/a <?php echo $nombre . ' ' . $apellido ?>!</h1>
+                <div class="list-group text-center">
+                    <a href="alta_baja_profesores.php" class="list-group-item list-group-item-action mb-2" aria-label="Dar de alta o de baja profesores en el sistema">Alta/Baja Profesores</a>
+                    <a href="gestionar_solicitudes_pps.php" class="list-group-item list-group-item-action mb-2" aria-label="Gestionar solicitudes pps de los alumnos">Gestionar Solicitudes PPS</a>
+                    <a href="gestionar_registros_profesores.php" class="list-group-item list-group-item-action mb-2" aria-label="Gestionar registros de profesores">Gestionar Registros de Profesores</a>
+                    <a href="trazabilidad_pps.php" class="list-group-item list-group-item-action mb-2" aria-label="Realizar la trazabilidad de las pps de un alumno">Trazabilidad PPS de un Alumno</a>
+                    <a href="modificar_perfil.php" class="list-group-item list-group-item-action mb-2" aria-label="Modificar mi perfil">Modificar mi Perfil</a>
+                    <a href="notificaciones_sistema.php" class="list-group-item list-group-item-action mb-2" aria-label="Notificaciones del sistema">Notificaciones del Sistema</a>
+                    <a href="../cerrar_sesion.php" class="list-group-item list-group-item-action mb-4" aria-label="Cerrar sesión">Cerrar Sesión</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
     <?php
     if (!empty($mensaje)) {
     ?>

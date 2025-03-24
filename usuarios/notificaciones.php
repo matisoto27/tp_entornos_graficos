@@ -73,7 +73,7 @@ $result = $stmt->get_result();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -87,7 +87,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         <div class="container br-class alt-background">
             <div class="row pt-4 mb-3">
                 <div class="col">
-                    <h2 class="text-center">Notificaciones</h2>
+                    <h1 class="text-center">Notificaciones</h1>
                 </div>
             </div>
             <div class="row mb-3">

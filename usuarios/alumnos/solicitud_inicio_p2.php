@@ -131,7 +131,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -143,8 +143,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background form-container">
-            <h3 class="text-center pt-4 mb-2">Solicitud de Inicio PPS</h3>
-            <h4 class="text-center mb-4">Datos de la Empresa</h4>
+            <h1 class="text-center pt-4 mb-2">Solicitud de Inicio PPS P.2</h1>
+            <h2 class="text-center mb-4">Datos de la Empresa</h2>
             <form method="POST" action="solicitud_inicio_p3.php" class="mx-auto" style="width: 300px;">
                 <div class="mb-3">
                     <label for="input-nombre-empresa" class="form-label">Nombre</label>

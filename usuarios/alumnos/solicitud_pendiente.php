@@ -43,7 +43,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';

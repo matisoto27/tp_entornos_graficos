@@ -43,126 +43,127 @@ $result = $mysqli->query("SELECT * FROM notificaciones_sistema ORDER BY id_notif
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <!-- Centrado vertical y horizontal -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container br-class bg-white min-vh-xs-100">
-            <div class="row pt-4 mb-3">
-                <div class="col">
-                    <h2 class="text-center">Notificaciones del Sistema</h2>
+    <main>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="container br-class bg-white min-vh-xs-100">
+                <div class="row pt-4 mb-3">
+                    <div class="col">
+                        <h1 class="text-center">Notificaciones del Sistema</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="col-3">Fecha Envio</th>
-                                    <th scope="col" class="col-6">Titulo</th>
-                                    <th scope="col" class="col-3">Mensaje</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $contador = 0;
-                                if ($result->num_rows > 0) {
-                                    while ($notificacion = $result->fetch_assoc()) {
-                                        $contador++;
-                                ?>
-                                        <tr data-bs-toggle="modal" data-bs-target="#modal-notificacion" onclick="handleRowClick('<?php echo $notificacion['titulo'] ?>', '<?php echo $notificacion['mensaje'] ?>')">
-                                            <td><?php echo $notificacion['fecha_enviada'] ?></td>
-                                            <td><?php echo $notificacion['titulo'] ?></td>
-                                            <td><?php echo substr($notificacion['mensaje'], 0, 15) . (strlen($notificacion['mensaje']) > 15 ? '...' : '') ?></td>
-                                            <form id="form-<?php echo $notificacion['id_notificacion'] ?>" action="update_notificacion.php" method="post">
-                                                <input type="hidden" name="id_notificacion" value="<?php echo $notificacion['id_notificacion'] ?>">
-                                            </form>
-                                        </tr>
-                                    <?php
-                                    }
-                                    // Rellenar las filas restantes si no hay suficientes registros.
-                                    while ($contador < $registros_por_pagina) {
-                                        $contador++;
-                                    ?>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                } else {
-                                    ?>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover text-center">
+                                <thead>
                                     <tr>
-                                        <td colspan="3" class="text-center">Todavia no tienes ninguna notificación</td>
+                                        <th scope="col" class="col-3">Fecha Envio</th>
+                                        <th scope="col" class="col-6">Titulo</th>
+                                        <th scope="col" class="col-3">Mensaje</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $contador = 0;
+                                    if ($result->num_rows > 0) {
+                                        while ($notificacion = $result->fetch_assoc()) {
+                                            $contador++;
+                                    ?>
+                                            <tr data-bs-toggle="modal" data-bs-target="#modal-notificacion" onclick="handleRowClick('<?php echo $notificacion['titulo'] ?>', '<?php echo $notificacion['mensaje'] ?>')">
+                                                <td><?php echo $notificacion['fecha_enviada'] ?></td>
+                                                <td><?php echo $notificacion['titulo'] ?></td>
+                                                <td><?php echo substr($notificacion['mensaje'], 0, 15) . (strlen($notificacion['mensaje']) > 15 ? '...' : '') ?></td>
+                                                <form id="form-<?php echo $notificacion['id_notificacion'] ?>" action="update_notificacion.php" method="post">
+                                                    <input type="hidden" name="id_notificacion" value="<?php echo $notificacion['id_notificacion'] ?>">
+                                                </form>
+                                            </tr>
+                                        <?php
+                                        }
+                                        // Rellenar las filas restantes si no hay suficientes registros.
+                                        while ($contador < $registros_por_pagina) {
+                                            $contador++;
+                                        ?>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="3" class="text-center">Todavia no tienes ninguna notificación</td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
+                            <ul class="pagination justify-content-center" style="margin-bottom: 0;">
+                                <!-- Paginación: Anterior -->
+                                <?php if ($pagina_actual > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>" aria-label="Previous">
+                                            <span aria-hidden="true">Anterior</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Anterior</span>
+                                    </li>
+                                <?php endif; ?>
+
+                                <!-- Paginación: Mostrar páginas -->
+                                <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                                    <?php if ($i == $pagina_actual): ?>
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link"><?php echo $i; ?></span>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+
+                                <!-- Paginación: Siguiente -->
+                                <?php if ($pagina_actual < $total_paginas): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>" aria-label="Next">
+                                            <span aria-hidden="true">Siguiente</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Siguiente</span>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
-                        <ul class="pagination justify-content-center" style="margin-bottom: 0;">
-                            <!-- Paginación: Anterior -->
-                            <?php if ($pagina_actual > 1): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>" aria-label="Previous">
-                                        <span aria-hidden="true">Anterior</span>
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">Anterior</span>
-                                </li>
-                            <?php endif; ?>
-
-                            <!-- Paginación: Mostrar páginas -->
-                            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-                                <?php if ($i == $pagina_actual): ?>
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link"><?php echo $i; ?></span>
-                                    </li>
-                                <?php else: ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endfor; ?>
-
-                            <!-- Paginación: Siguiente -->
-                            <?php if ($pagina_actual < $total_paginas): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>" aria-label="Next">
-                                        <span aria-hidden="true">Siguiente</span>
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">Siguiente</span>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
-                </div>
-            </div>
         </div>
-    </div>
+    </main>
     <!-- Modal -->
     <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">

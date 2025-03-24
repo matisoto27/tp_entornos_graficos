@@ -18,33 +18,34 @@ if (!empty($_SESSION['mensaje_error'])) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <!-- Centrado vertical y horizontal -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container br-class bg-white form-container min-vh-xs-100">
-            <h3 class="text-center mt-4 mb-2">Responsable PPS</h3>
-            <h3 class="text-center mb-4">Iniciar Sesión</h3>
-            <form method="POST" action="login_validar.php" class="mx-auto" style="width: 250px;">
-                <div class="mb-3">
-                    <label for="input-dni" class="form-label">Codigo</label>
-                    <input type="text" class="form-control" name="codigo" id="input-codigo" required>
-                </div>
-                <div class="mb-4">
-                    <label for="input-contrasena" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="contrasena" id="input-contrasena" required>
-                </div>
-                <div class="mb-4">
-                    <button type="submit" class="btn btn-primary w-100" aria-label="Ingresar al menú principal">Ingresar</button>
-                </div>
-            </form>
+    <main>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="container br-class bg-white form-container min-vh-xs-100">
+                <h1 class="text-center mb-4">Iniciar Sesión</h1>
+                <h2 class="text-center mt-4 mb-2">Responsable PPS</h2>
+                <form method="POST" action="login_validar.php" class="mx-auto" style="width: 250px;">
+                    <div class="mb-3">
+                        <label for="input-dni" class="form-label">Codigo</label>
+                        <input type="text" class="form-control" name="codigo" id="input-codigo" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="input-contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="contrasena" id="input-contrasena" required>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-primary w-100" aria-label="Ingresar al menú principal">Ingresar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    </main>
     <?php
     if (!empty($mensaje)) {
     ?>

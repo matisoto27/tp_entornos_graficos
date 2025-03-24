@@ -17,7 +17,7 @@ if ($result_notificaciones->num_rows > 0) {
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Abrir o cerrar el menú de navegación">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <button class="btn bg-white" style="border: 1px solid rgba(0,0,0, 0.4);" id="home-button"><a href="/usuarios/menu_principal.php" style="text-decoration: none; color: unset;" aria-label="Volver al inicio">Volver al Inicio</a></button>
+                    <button class="btn bg-white" style="border: 1px solid rgba(0,0,0, 0.4);" id="home-button" aria-label="Volver al inicio" onclick='window.location.href="/usuarios/menu_principal.php"'>Volver al Inicio</button>
                     <div class="collapse navbar-collapse d-lg-flex" id="navbarExample">
                         <a class="navbar-brand col-lg-2 me-0" href="/usuarios/menu_principal.php"><img src="/usuarios/logo.png" alt="Logo de la Universidad Tecnológica Nacional" height="40"></a>
                         <ul class="navbar-nav col-lg-8 justify-content-lg-center align-items-lg-center">

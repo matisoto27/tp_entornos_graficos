@@ -46,7 +46,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -65,24 +65,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-4">
                 <div class="col text-center">
-                    <a href="/usuarios/menu_principal.php" class="btn btn-outline-primary w-100">Página Principal</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Ir al menú principal" onclick='window.location.href="menu_principal.php"'>Página Principal</button>
                 </div>
             </div>
             <div class="row pt-4 <?php echo ($_SESSION['rol'] === 'profesores') ? 'mb-4' : 'pb-4'; ?>" id="sitemap-enlaces">
                 <div class="col-12 mb-3">
-                    <a href="<?php echo $href_pps ?>" class="btn btn-outline-primary w-100">Trámites PPS</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Trámites pps" onclick='window.location.href="<?php echo $href_pps ?>"'>Trámites PPS</button>
                 </div>
                 <div class="col-12 mb-3">
-                    <a href="<?php echo $href_lista_profesores ?>" class="btn btn-outline-primary w-100">Lista de Profesores</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Lista de profesores" onclick='window.location.href="<?php echo $href_lista_profesores ?>"'>Lista de Profesores</button>
                 </div>
                 <div class="col-12 mb-3">
-                    <a href="<?php echo $href_notificaciones ?>" class="btn btn-outline-primary w-100">Notificaciones</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Notificaciones" onclick='window.location.href="<?php echo $href_notificaciones ?>"'>Notificaciones</button>
                 </div>
                 <div class="col-12 mb-3">
-                    <a href="<?php echo $href_modificar_perfil ?>" class="btn btn-outline-primary w-100">Mi Perfil</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Mi perfil" onclick='window.location.href="<?php echo $href_modificar_perfil ?>"'>Mi Perfil</button>
                 </div>
                 <div class="col-12 mb-3">
-                    <a href="/usuarios/contacto.php" class="btn btn-outline-primary w-100">¡Contáctanos!</a>
+                    <button type="button" class="btn btn-outline-primary w-100" aria-label="Abrir formulario de contacto" onclick='window.location.href="/usuarios/contacto.php"'>¡Contáctanos!</button>
                 </div>
             </div>
             <?php
@@ -90,7 +90,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             ?>
                 <div class="row pb-4" id="sitemap-profesor">
                     <div class="col-12 text-center">
-                        <a href="/usuarios/profesores/informe_alumnos_ciclo_lectivo.php" class="btn btn-outline-primary w-100">Buscar alumnos tutorizados en un ciclo lectivo determinado</a>
+                        <button type="button" class="btn btn-outline-primary w-100" aria-label="Buscar alumnos tutorizados en un ciclo lectivo determinado" onclick='window.location.href="/usuarios/profesores/informe_alumnos_ciclo_lectivo.php"'>Buscar alumnos tutorizados en un ciclo lectivo determinado</button>
                     </div>
                 </div>
             <?php

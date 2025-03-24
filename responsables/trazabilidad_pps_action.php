@@ -109,168 +109,170 @@ if ($result->num_rows > 0) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <div class="mt-sm-5 container br-class bg-white min-vh-xs-100 p-4" style="max-width: 700px;">
-        <div class="d-flex flex-row justify-content-center mb-4">
-            <div class="d-flex flex-column">
-                <h2>Trazabilidad de PPS</h2>
-            </div>
-        </div>
-        <div class="d-flex flex-row justify-content-between mb-4">
-            <div class="d-flex flex-column align-items-start">
-                <h3>Alumno</h3>
-                <h3><?php echo $nombre . ' ' . $apellido ?></h3>
-            </div>
-            <div class="d-flex flex-column align-items-end">
-                <h3>Profesor</h3>
-                <h3><?php echo $nombre_profesor . ' ' . $apellido_profesor ?></h3>
-            </div>
-        </div>
-        <?php
-        if (!empty($alumno['fecha_confirmacion_solicitud'])) {
-        ?>
-            <div class="d-flex flex-row mb-4">
-                <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
-                    <div class="p-2">Solicitud de Inicio</div>
-                    <div class="p-2">
-                        Nombre del archivo:
-                        <a href="../solicitud_inicio_pdf.php?dni=<?php echo $dni_alumno ?>" target="_blank">
-                            <?php echo 'solicitud_inicio_' . strtolower($apellido) . '_' . strtolower($nombre) . '.pdf' ?>
-                        </a>
-                    </div>
-                    <div class="p-2">Fecha de confirmación: <?php echo $alumno['fecha_confirmacion_solicitud'] ?></div>
+    <main>
+        <div class="mt-sm-5 container br-class bg-white min-vh-xs-100 p-4" style="max-width: 700px;">
+            <div class="d-flex flex-row justify-content-center mb-4">
+                <div class="d-flex flex-column">
+                    <h1>Trazabilidad de PPS</h1>
                 </div>
             </div>
-        <?php
-        }
-        if (!empty($alumno['fecha_plan_trabajo'])) {
-        ?>
-            <div class="d-flex flex-row mb-4">
-                <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
-                    <div class="p-2">Plan de Trabajo</div>
-                    <div class="p-2">
-                        Nombre del archivo:
-                        <a href="../descargar_archivo.php?nombre-archivo=<?php echo $alumno['archivo_plan_trabajo'] ?>&es-informe=0">
-                            <?php echo $alumno['archivo_plan_trabajo'] ?>
-                        </a>
-                    </div>
-                    <div class="p-2">Fecha de publicacion: <?php echo $alumno['fecha_plan_trabajo'] ?></div>
+            <div class="d-flex flex-row justify-content-between mb-4">
+                <div class="d-flex flex-column align-items-start">
+                    <h3>Alumno</h3>
+                    <h3><?php echo $nombre . ' ' . $apellido ?></h3>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <h3>Profesor</h3>
+                    <h3><?php echo $nombre_profesor . ' ' . $apellido_profesor ?></h3>
                 </div>
             </div>
             <?php
-        }
-        foreach ($informes as $i) {
-            if ($i['alumno'] === 1) {
+            if (!empty($alumno['fecha_confirmacion_solicitud'])) {
             ?>
                 <div class="d-flex flex-row mb-4">
                     <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
-                        <div class="p-2">
-                            Informe N<?php echo $i['id_informe'];
-                                        if ($i['original'] === 0) echo ' Corregido'; ?></div>
+                        <div class="p-2">Solicitud de Inicio</div>
                         <div class="p-2">
                             Nombre del archivo:
-                            <a href="../descargar_archivo.php?nombre-archivo=<?php echo $i['nombre_archivo'] ?>&es-informe=1">
-                                <?php echo $i['nombre_archivo'] ?>
+                            <a href="../solicitud_inicio_pdf.php?dni=<?php echo $dni_alumno ?>" aria-label="Abrir solicitud de inicio del alumno" target="_blank">
+                                <?php echo 'solicitud_inicio_' . strtolower($apellido) . '_' . strtolower($nombre) . '.pdf' ?>
                             </a>
                         </div>
-                        <div class="p-2">Fecha de publicación: <?php echo $i['fecha'] ?></div>
+                        <div class="p-2">Fecha de confirmación: <?php echo $alumno['fecha_confirmacion_solicitud'] ?></div>
                     </div>
                 </div>
             <?php
             }
+            if (!empty($alumno['fecha_plan_trabajo'])) {
             ?>
-            <?php
-            if ($i['alumno'] === 0 && !empty($i['fecha'])) {
-            ?>
-                <div class="d-flex flex-row-reverse mb-4">
-                    <div class="d-flex flex-column text-center align-items-center" style="background-color: pink; border-radius: 10px;">
-                        <div class="p-2">Calificación del Informe N<?php echo $i['id_informe'];
-                                                                    if ($i['original'] === 0) echo ' Corregido'; ?></div>
-                        <div class="p-2"><?php echo $i['estado'] ?></div>
-                        <div class="p-2">Fecha de calificación: <?php echo $i['fecha'] ?></div>
+                <div class="d-flex flex-row mb-4">
+                    <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
+                        <div class="p-2">Plan de Trabajo</div>
                         <div class="p-2">
-                            <?php if ($i['estado'] === "RECHAZADO") { ?>
-                                <button type="button" class="btn btn-light btn-sm" style="border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $i['id_informe'] ?>" aria-label="Abrir correcciones">VER CORRECCIONES</button>
-                            <?php } ?>
+                            Nombre del archivo:
+                            <a href="../descargar_archivo.php?nombre-archivo=<?php echo $alumno['archivo_plan_trabajo'] ?>&es-informe=0" aria-label="Abrir plan de trabajo del alumno" target="_blank">
+                                <?php echo $alumno['archivo_plan_trabajo'] ?>
+                            </a>
+                        </div>
+                        <div class="p-2">Fecha de publicacion: <?php echo $alumno['fecha_plan_trabajo'] ?></div>
+                    </div>
+                </div>
+                <?php
+            }
+            foreach ($informes as $i) {
+                if ($i['alumno'] === 1) {
+                ?>
+                    <div class="d-flex flex-row mb-4">
+                        <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
+                            <div class="p-2">
+                                Informe N<?php echo $i['id_informe'];
+                                            if ($i['original'] === 0) echo ' Corregido'; ?></div>
+                            <div class="p-2">
+                                Nombre del archivo:
+                                <a href="../descargar_archivo.php?nombre-archivo=<?php echo $i['nombre_archivo'] ?>&es-informe=1" aria-label="Abrir informe del alumno" target="_blank">
+                                    <?php echo $i['nombre_archivo'] ?>
+                                </a>
+                            </div>
+                            <div class="p-2">Fecha de publicación: <?php echo $i['fecha'] ?></div>
                         </div>
                     </div>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if (!empty($i['correcciones'])) {
-            ?>
-                <!-- Modal -->
-                <div class="modal fade" id="modal-correcciones<?php echo $i['id_informe'] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-title" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-correcciones-title">Correcciones del Informe N<?php echo $i['id_informe'] ?></h5>
+                <?php
+                }
+                ?>
+                <?php
+                if ($i['alumno'] === 0 && !empty($i['fecha'])) {
+                ?>
+                    <div class="d-flex flex-row-reverse mb-4">
+                        <div class="d-flex flex-column text-center align-items-center" style="background-color: pink; border-radius: 10px;">
+                            <div class="p-2">Calificación del Informe N<?php echo $i['id_informe'];
+                                                                        if ($i['original'] === 0) echo ' Corregido'; ?></div>
+                            <div class="p-2"><?php echo $i['estado'] ?></div>
+                            <div class="p-2">Fecha de calificación: <?php echo $i['fecha'] ?></div>
+                            <div class="p-2">
+                                <?php if ($i['estado'] === "RECHAZADO") { ?>
+                                    <button type="button" class="btn btn-light btn-sm" style="border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $i['id_informe'] ?>" aria-label="Abrir correcciones">VER CORRECCIONES</button>
+                                <?php } ?>
                             </div>
-                            <div class="modal-body">
-                                <p><?php echo $i['correcciones'] ?></p>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-center">
-                                            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal" aria-label="Cerrar correcciones">Cerrar</button>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if (!empty($i['correcciones'])) {
+                ?>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-correcciones<?php echo $i['id_informe'] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-correcciones-title">Correcciones del Informe N<?php echo $i['id_informe'] ?></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p><?php echo $i['correcciones'] ?></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-center">
+                                                <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal" aria-label="Cerrar correcciones">Cerrar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Fin Modal -->
+                    <!-- Fin Modal -->
+                <?php
+                }
+                ?>
             <?php
             }
             ?>
-        <?php
-        }
-        ?>
-        <div class="d-flex flex-row justify-content-center mb-4">
-            <div class="d-flex flex-column">
-                <p class="mb-0">FIN DE TRAZABILIDAD</p>
-            </div>
-        </div>
-        <?php
-        if ($ultimo_informe['final'] == 1 && !empty($ultimo_informe['estado']) && $ultimo_informe['estado'] === 'APROBADO') {
-        ?>
-            <div class="d-flex flex-row justify-content-center pt-4 my-4" style="border-top: 1px solid black;">
+            <div class="d-flex flex-row justify-content-center mb-4">
                 <div class="d-flex flex-column">
-                    <form method="POST" action="action_aprobar_alumno.php">
-                        <input type="hidden" name="dni-alumno" value="<?php echo $dni_alumno ?>">
-                        <?php
-                        if (empty($alumno['fecha_pps_aprobadas'])) {
-                        ?>
-                            <button type="submit" class="btn btn-success px-5 py-2" aria-label="Registrar aprobación del alumno">Registrar Aprobación</button>
-                        <?php
-                        } else {
-                        ?>
-                            <div class="px-5 py-2" style="color: #fff; background-color: #28a745; border-color: #28a745;">PPS APROBADAS</div>
-                        <?php
-                        }
-                        ?>
-                    </form>
+                    <p class="mb-0">FIN DE TRAZABILIDAD</p>
                 </div>
             </div>
-        <?php
-        }
-        ?>
-        <div class="d-flex flex-row justify-content-center">
-            <div class="d-flex flex-column">
-                <button type="button" class="btn btn-primary px-5 py-2" aria-label="Volver al menú principal" onclick='window.location.href="trazabilidad_pps.php"'>Volver</button>
+            <?php
+            if ($ultimo_informe['final'] == 1 && !empty($ultimo_informe['estado']) && $ultimo_informe['estado'] === 'APROBADO') {
+            ?>
+                <div class="d-flex flex-row justify-content-center pt-4 my-4" style="border-top: 1px solid black;">
+                    <div class="d-flex flex-column">
+                        <form method="POST" action="action_aprobar_alumno.php">
+                            <input type="hidden" name="dni-alumno" value="<?php echo $dni_alumno ?>">
+                            <?php
+                            if (empty($alumno['fecha_pps_aprobadas'])) {
+                            ?>
+                                <button type="submit" class="btn btn-success px-5 py-2" aria-label="Registrar aprobación del alumno">Registrar Aprobación</button>
+                            <?php
+                            } else {
+                            ?>
+                                <div class="px-5 py-2" style="color: #fff; background-color: #28a745; border-color: #28a745;">PPS APROBADAS</div>
+                            <?php
+                            }
+                            ?>
+                        </form>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+            <div class="d-flex flex-row justify-content-center">
+                <div class="d-flex flex-column">
+                    <button type="button" class="btn btn-primary px-5 py-2" aria-label="Volver al menú principal" onclick='window.location.href="trazabilidad_pps.php"'>Volver</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

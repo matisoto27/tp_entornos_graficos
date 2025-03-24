@@ -71,7 +71,7 @@ $email_original = $usuario['email'];
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -83,7 +83,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background form-container">
-            <h3 class="text-center pt-4 mb-4">Modificar Perfil</h3>
+            <h1 class="text-center pt-4 mb-4">Modificar Perfil</h1>
             <form method="POST" action="modificar_perfil_action.php" class="mx-auto" style="width: 280px;">
                 <div class="mb-3">
                     <label for="input-nombre" class="form-label">Nombre</label>

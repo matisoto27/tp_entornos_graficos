@@ -44,47 +44,48 @@ $email_original = $responsable['email'];
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <!-- Centrado vertical y horizontal -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container br-class bg-white form-container min-vh-xs-100">
-            <h3 class="text-center my-4">Modificar Perfil</h3>
-            <form method="POST" action="modificar_perfil_action.php" class="mx-auto" style="width: 280px;">
-                <div class="mb-3">
-                    <label for="input-nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="input-nombre" value="<?php echo $responsable['nombre'] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="input-apellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" name="apellido" id="input-apellido" value="<?php echo $responsable['apellido'] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="input-email" class="form-label">Correo Electronico</label>
-                    <input type="email" class="form-control" name="email" id="input-email" value="<?php echo $responsable['email'] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="input-contrasena" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="contrasena" id="input-contrasena" placeholder="Aquí puedes cambiar tu contraseña">
-                </div>
-                <div class="mb-4">
-                    <label for="input-repetir-contrasena" class="form-label">Repetir Nueva Contraseña</label>
-                    <input type="password" class="form-control" name="repetir-contrasena" id="input-repetir-contrasena" disabled>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-success w-100" id="button-guardar" aria-label="Guardar cambios" disabled>Guardar Cambios</button>
-                </div>
-                <div class="mb-4">
-                    <button type="button" class="btn btn-primary w-100" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
-                </div>
-            </form>
+    <main>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="container br-class bg-white form-container min-vh-xs-100">
+                <h1 class="text-center my-4">Modificar Perfil</h1>
+                <form method="POST" action="modificar_perfil_action.php" class="mx-auto" style="width: 280px;">
+                    <div class="mb-3">
+                        <label for="input-nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="input-nombre" value="<?php echo $responsable['nombre'] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="input-apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="input-apellido" value="<?php echo $responsable['apellido'] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="input-email" class="form-label">Correo Electronico</label>
+                        <input type="email" class="form-control" name="email" id="input-email" value="<?php echo $responsable['email'] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="input-contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="contrasena" id="input-contrasena" placeholder="Aquí puedes cambiar tu contraseña">
+                    </div>
+                    <div class="mb-4">
+                        <label for="input-repetir-contrasena" class="form-label">Repetir Nueva Contraseña</label>
+                        <input type="password" class="form-control" name="repetir-contrasena" id="input-repetir-contrasena" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-success w-100" id="button-guardar" aria-label="Guardar cambios" disabled>Guardar Cambios</button>
+                    </div>
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-primary w-100" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    </main>
     <?php
     if (!empty($mensaje)) {
     ?>

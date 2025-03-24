@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-h2 {
+h1 {
     margin-bottom: 0;
 }
 
@@ -81,11 +81,6 @@ INDEX
 .list-container {
     min-width: 300px;
     max-width: 500px;
-}
-
-.list-container h3,
-.list-container span {
-    color: white;
 }
 
 .list-container .list-group .list-group-item {

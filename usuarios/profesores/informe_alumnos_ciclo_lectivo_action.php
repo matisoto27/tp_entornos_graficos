@@ -55,17 +55,17 @@ ob_start();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title>Title</title>
+    <title>Informe Alumnos por Ciclo Lectivo</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <h2 class="text-center">Alumnos tutorizados | Ciclo Lectivo <?php echo ' ' . $anio . ' - ' . $ciclo ?></h2>
+    <h1 class="text-center">Alumnos tutorizados | Ciclo Lectivo <?php echo ' ' . $anio . ' - ' . $ciclo ?></h1>
     <table class="table text-center">
         <thead>
             <tr>

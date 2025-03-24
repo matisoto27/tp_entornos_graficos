@@ -43,143 +43,144 @@ $result = $mysqli->query("SELECT * FROM usuarios WHERE contrasena IS NULL ORDER 
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 ?>
 
 <body>
-    <!-- Centrado vertical y horizontal -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container br-class bg-white min-vh-xs-100">
-            <div class="row pt-4 mb-3">
-                <div class="col">
-                    <h2 class="text-center">Solicitudes de Registro</h2>
+    <main>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="container br-class bg-white min-vh-xs-100">
+                <div class="row pt-4 mb-3">
+                    <div class="col">
+                        <h1 class="text-center">Solicitudes de Registro</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table table-striped text-center" style="min-width: 1100px;">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="col-1">DNI</th>
-                                    <th scope="col" class="col-2">Nombre</th>
-                                    <th scope="col" class="col-2">Apellido</th>
-                                    <th scope="col" class="col-2">Fecha de Nacimiento</th>
-                                    <th scope="col" class="col-3">Correo Electrónico</th>
-                                    <th scope="col" class="col-1">Rechazar</th>
-                                    <th scope="col" class="col-1">Aprobar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $contador = 0;
-                                if ($result->num_rows > 0) {
-                                    while ($profesor = $result->fetch_assoc()) {
-                                        $contador++;
-                                ?>
-                                        <tr>
-                                            <td><?php echo $profesor['dni'] ?></td>
-                                            <td><?php echo $profesor['nombre'] ?></td>
-                                            <td><?php echo $profesor['apellido'] ?></td>
-                                            <td><?php echo $profesor['fecha_nacimiento'] ?></td>
-                                            <td><?php echo $profesor['email'] ?></td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-rechazar" aria-label="Rechazar solicitud de registro" onclick="rechazarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
-                                                    <i class="bi bi-x-lg" style="color: white;"></i>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-aprobar" aria-label="Aprobar solicitud de registro" onclick="aprobarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
-                                                    <i class="bi bi-check-lg" style="color: white;"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    // Rellenar las filas restantes si no hay suficientes registros.
-                                    while ($contador < $registros_por_pagina) {
-                                        $contador++;
-                                    ?>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                } else {
-                                    ?>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-striped text-center" style="min-width: 1100px;">
+                                <thead>
                                     <tr>
-                                        <td colspan="7" class="text-center">No hay solicitudes pendientes</td>
+                                        <th scope="col" class="col-1">DNI</th>
+                                        <th scope="col" class="col-2">Nombre</th>
+                                        <th scope="col" class="col-2">Apellido</th>
+                                        <th scope="col" class="col-2">Fecha de Nacimiento</th>
+                                        <th scope="col" class="col-3">Correo Electrónico</th>
+                                        <th scope="col" class="col-1">Rechazar</th>
+                                        <th scope="col" class="col-1">Aprobar</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $contador = 0;
+                                    if ($result->num_rows > 0) {
+                                        while ($profesor = $result->fetch_assoc()) {
+                                            $contador++;
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $profesor['dni'] ?></td>
+                                                <td><?php echo $profesor['nombre'] ?></td>
+                                                <td><?php echo $profesor['apellido'] ?></td>
+                                                <td><?php echo $profesor['fecha_nacimiento'] ?></td>
+                                                <td><?php echo $profesor['email'] ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-rechazar" aria-label="Rechazar solicitud de registro" onclick="rechazarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
+                                                        <i class="bi bi-x-lg" style="color: white;"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-aprobar" aria-label="Aprobar solicitud de registro" onclick="aprobarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
+                                                        <i class="bi bi-check-lg" style="color: white;"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        // Rellenar las filas restantes si no hay suficientes registros.
+                                        while ($contador < $registros_por_pagina) {
+                                            $contador++;
+                                        ?>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center">No hay solicitudes pendientes</td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
+                            <ul class="pagination justify-content-center" style="margin-bottom: 0;">
+                                <!-- Paginación: Anterior -->
+                                <?php if ($pagina_actual > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>" aria-label="Previous">
+                                            <span aria-hidden="true">Anterior</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Anterior</span>
+                                    </li>
+                                <?php endif; ?>
+
+                                <!-- Paginación: Mostrar páginas -->
+                                <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                                    <?php if ($i == $pagina_actual): ?>
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link"><?php echo $i; ?></span>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+
+                                <!-- Paginación: Siguiente -->
+                                <?php if ($pagina_actual < $total_paginas): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>" aria-label="Next">
+                                            <span aria-hidden="true">Siguiente</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Siguiente</span>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
-                        <ul class="pagination justify-content-center" style="margin-bottom: 0;">
-                            <!-- Paginación: Anterior -->
-                            <?php if ($pagina_actual > 1): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>" aria-label="Previous">
-                                        <span aria-hidden="true">Anterior</span>
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">Anterior</span>
-                                </li>
-                            <?php endif; ?>
-
-                            <!-- Paginación: Mostrar páginas -->
-                            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-                                <?php if ($i == $pagina_actual): ?>
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link"><?php echo $i; ?></span>
-                                    </li>
-                                <?php else: ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endfor; ?>
-
-                            <!-- Paginación: Siguiente -->
-                            <?php if ($pagina_actual < $total_paginas): ?>
-                                <li class="page-item">
-                                    <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>" aria-label="Next">
-                                        <span aria-hidden="true">Siguiente</span>
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">Siguiente</span>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
-                </div>
-            </div>
         </div>
-    </div>
+    </main>
     <!-- Modal Rechazar -->
     <div class="modal fade" id="modal-rechazar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-rechazar-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">

@@ -89,7 +89,7 @@ if ($result_profesores->num_rows > 0) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -103,7 +103,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         <div class="container br-class alt-background">
             <div class="row pt-4 mb-3">
                 <div class="col">
-                    <h2 class="text-center">Lista de Profesores</h2>
+                    <h1 class="text-center">Lista de Profesores</h1>
                 </div>
             </div>
             <div class="row mb-3">

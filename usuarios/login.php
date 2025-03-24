@@ -46,7 +46,7 @@ $form_title = ($_SESSION['rol'] === 'alumnos') ? 'Alumno' : 'Profesor';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -56,8 +56,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <!-- Centrado vertical y horizontal -->
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="container br-class bg-white form-container min-vh-xs-100">
-            <h3 class="text-center mt-4 mb-2"><?php echo $form_title ?></h3>
-            <h3 class="text-center mb-4">Iniciar Sesión</h3>
+            <h1 class="text-center mb-4">Iniciar Sesión</h1>
+            <h2 class="text-center mt-4 mb-2"><?php echo $form_title ?></h2>
             <form method="POST" action="login_validar.php" class="mx-auto" style="width: 250px;">
                 <div class="mb-3">
                     <label for="input-dni" class="form-label">DNI</label>
@@ -73,7 +73,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </form>
             <div class="mb-4 d-flex justify-content-center">
                 <p>¿Todavía no tienes una cuenta?</p>
-                <a href="signup.php" class="ms-1">Regístrate</a>
+                <a href="signup.php" class="ms-1" aria-label="Registrarme">Regístrate</a>
             </div>
         </div>
     </div>

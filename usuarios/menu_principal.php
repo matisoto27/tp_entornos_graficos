@@ -60,7 +60,7 @@ if (!empty($_SESSION['mensaje_error'])) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';

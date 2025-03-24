@@ -43,7 +43,7 @@ $href_cerrar_sesion = '/cerrar_sesion.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
@@ -55,7 +55,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
         <div class="container br-class alt-background upload-container">
-            <h2 class="text-center pt-4 mb-4">Subir Plan de Trabajo</h2>
+            <h1 class="text-center pt-4 mb-4">Subir Plan de Trabajo</h1>
             <form method="POST" action="subir_plan_trabajo_action.php" enctype="multipart/form-data" class="mx-auto">
                 <div class="mb-4">
                     <input type="file" class="form-control" name="archivo" id="input-archivo" required>
