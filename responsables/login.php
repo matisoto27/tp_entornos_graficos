@@ -28,8 +28,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <main>
         <div class="d-flex justify-content-center align-items-center min-vh-100">
             <div class="container br-class bg-white form-container min-vh-xs-100">
-                <h1 class="text-center mb-4">Iniciar Sesión</h1>
-                <h2 class="text-center mt-4 mb-2">Responsable PPS</h2>
+                <h1 class="text-center mt-4 mb-3">Iniciar Sesión</h1>
+                <h2 class="text-center mb-4">Responsable PPS</h2>
                 <form method="POST" action="login_validar.php" class="mx-auto" style="width: 250px;">
                     <div class="mb-3">
                         <label for="input-dni" class="form-label">Codigo</label>

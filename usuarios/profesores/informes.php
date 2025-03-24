@@ -159,8 +159,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
-        <div class="container-fluid br-class alt-background" style="border-radius: 0;">
-            <div class="row pt-4 mb-3">
+        <div class="container-fluid h-100 alt-background">
+            <div class="row pt-3 mb-3">
                 <div class="col">
                     <h1 class="text-center">PPS Alumnos</h1>
                 </div>
@@ -310,7 +310,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row mb-3">
                 <div class="col">
                     <nav class="d-flex flex-column justify-content-center h-100" aria-label="Paginación">
                         <ul class="pagination justify-content-center" style="margin-bottom: 0;">
@@ -361,7 +361,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <button type="button" class="btn btn-primary px-5 py-2" aria-label="Descargar informe de alumnos a cargo actualmente" onclick='window.location.href="informe_alumnos_a_cargo.php"'>Descargar informe de alumnos a cargo actualmente</button>
                 </div>
             </div>
-            <div class="row pb-4">
+            <div class="row pb-3">
                 <div class="col text-center">
                     <button type="button" class="btn btn-primary px-5 py-2" aria-label="Buscar alumnos tutorizados en un ciclo lectivo determinado" onclick='window.location.href="informe_alumnos_ciclo_lectivo.php"'>Buscar alumnos tutorizados en un ciclo lectivo determinado</button>
                 </div>
