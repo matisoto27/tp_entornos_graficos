@@ -226,11 +226,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 
                                                     if ($informe['final'] == 1) {
                                                     ?>
-                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 1)">Final Rechazado (VER CORRECCION)</button>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" aria-label="Final rechazado, abrir correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 1)">Final Rechazado (VER CORRECCION)</button>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 0)">Informe Rechazado (VER CORRECCION)</button>
+                                                        <button type="button" class="btn btn-danger badge text-light" data-bs-toggle="modal" data-bs-target="#modal-correcciones" aria-label="Informe rechazado, abrir correcciones" onclick="abrirModal('<?php echo $informe['id_informe'] ?>', '<?php echo $informe['correcciones'] ?>', <?php echo $existe_correccion ?>, 0)">Informe Rechazado (VER CORRECCION)</button>
                                                     <?php
                                                     }
                                                 } else {
@@ -299,7 +299,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                             <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
                             <div class="d-flex flex-column">
                                 <div class="d-flex flex-row justify-content-center pb-4">
-                                    <button type="submit" class="btn btn-primary" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe</button>
+                                    <button type="submit" class="btn btn-primary" name="subir-informe" id="submit-button-subir-informe" aria-label="Subir informe" disabled>Subir Informe</button>
                                 </div>
                                 <?php
                                 if (!$supera_semana) {
@@ -323,7 +323,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
                                     <div class="d-flex flex-column">
                                         <div class="d-flex flex-row justify-content-center pb-4">
-                                            <button type="submit" class="btn btn-success" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe Final</button>
+                                            <button type="submit" class="btn btn-success" name="subir-informe" id="submit-button-subir-informe" aria-label="Subir informe final" disabled>Subir Informe Final</button>
                                         </div>
                                         <?php
                                         if (!$supera_semana) {
@@ -403,11 +403,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
     ?>
     <!-- Modal -->
-    <div class="modal fade" id="modal-correcciones" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
+    <div class="modal fade" id="modal-correcciones" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-titulo"></h5>
+                    <h5 class="modal-title" id="modal-correcciones-title"></h5>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-start" id="modal-mensaje"></div>
@@ -427,8 +427,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     <input type="hidden" name="id-informe" id="modal-input-id-informe">
                                     <input type="hidden" name="apellido" id="modal-input-apellido">
                                     <input type="hidden" name="nombre" id="modal-input-nombre">
-                                    <button type="submit" class="btn btn-primary m-2" id="submit-button-informe-corregido" disabled>Subir Informe Corregido</button>
-                                    <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary m-2" id="submit-button-informe-corregido" aria-label="Subir informe corregido" disabled>Subir Informe Corregido</button>
+                                    <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal" aria-label="Cerrar ventana de correcciones">Cerrar</button>
                                 </form>
                             </div>
                         </div>
@@ -442,7 +442,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
         function abrirModal(id_informe, correcciones, existe_correccion, es_final) {
-            document.getElementById('modal-titulo').innerText = 'Correcciones del Informe N' + id_informe;
+            document.getElementById('modal-correcciones-title').innerText = 'Correcciones del Informe N' + id_informe;
             document.getElementById('modal-mensaje').innerText = correcciones;
             if (existe_correccion == 1 || es_final == 1) {
                 document.getElementById('modal-footer-row').style.display = 'none';

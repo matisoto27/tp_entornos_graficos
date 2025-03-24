@@ -181,10 +181,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <input type="email" class="form-control" name="email-jefe" id="input-email-jefe" value="<?php echo $email_jefe ?>" required>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-success w-100">Enviar Solicitud PPS</button>
+                    <button type="submit" class="btn btn-success w-100" aria-label="Enviar solicitud pps">Enviar Solicitud PPS</button>
                 </div>
                 <div class="pb-4">
-                    <button type="button" class="btn btn-primary w-100" onclick='window.location.href="solicitud_inicio_p1.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary w-100" aria-label="Volver al menú principal" onclick='window.location.href="solicitud_inicio_p1.php"'>Volver</button>
                 </div>
                 <input type="hidden" value="<?php echo $legajo ?>" name="legajo">
                 <input type="hidden" value="<?php echo $carrera ?>" name="carrera">
@@ -198,15 +198,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <?php
     if (!empty($mensaje)) {
     ?>
-        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-label" aria-hidden="true">
+        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><?php echo $titulo ?></h5>
+                        <h5 class="modal-title" id="modal-message-title"><?php echo $titulo ?></h5>
                     </div>
                     <div class="modal-body"><?php echo $mensaje ?></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar mensaje">Cerrar</button>
                     </div>
                 </div>
             </div>

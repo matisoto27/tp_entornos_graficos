@@ -158,22 +158,22 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-label" aria-hidden="true">
+    <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-titulo"></h5>
+                    <h5 class="modal-title" id="modal-notificacion-title"></h5>
                 </div>
                 <div class="modal-body" id="modal-mensaje"></div>
                 <div class="modal-footer">
                     <div class="text-center w-100">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Recibido</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Cerrar notificicación">Recibido</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script>
         function handleRowClick(titulo, mensaje) {
-            document.getElementById('modal-titulo').innerText = titulo;
+            document.getElementById('modal-notificacion-title').innerText = titulo;
             document.getElementById('modal-mensaje').innerText = mensaje;
         }
     </script>

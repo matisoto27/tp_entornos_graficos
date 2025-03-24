@@ -196,18 +196,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
     ?>
     <!-- Modal -->
-    <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-label" aria-hidden="true">
+    <div class="modal fade" id="modal-notificacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-notificacion-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-titulo"></h5>
+                    <h5 class="modal-title" id="modal-notificacion-title"></h5>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-start w-100" id="modal-mensaje"></div>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center w-100">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick='window.location.href="notificaciones.php"'>Recibido</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Cerrar notificación" onclick='window.location.href="notificaciones.php"'>Recibido</button>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script>
         function abrirModal(idNotificacion, titulo, mensaje) {
             document.getElementById('input-id-notificacion').value = idNotificacion;
-            document.getElementById('modal-titulo').innerText = titulo;
+            document.getElementById('modal-notificacion-title').innerText = titulo;
             document.getElementById('modal-mensaje').innerText = mensaje;
             $('#formulario').submit();
         }

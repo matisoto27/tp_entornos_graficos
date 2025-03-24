@@ -105,12 +105,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                             <?php
                                             }
                                             ?>
-                                            <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_profesor" onclick="setAlumno('<?php echo $alumno['legajo'] ?>', '<?php echo $alumno['nombre'] ?>', '<?php echo $alumno['apellido'] ?>', '<?php echo $alumno['dni_profesor'] ?>')">Seleccionar Profesor</button></td>
+                                            <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-profesor" aria-label="Seleccionar profesor" onclick="setAlumno('<?php echo $alumno['legajo'] ?>', '<?php echo $alumno['nombre'] ?>', '<?php echo $alumno['apellido'] ?>', '<?php echo $alumno['dni_profesor'] ?>')">Seleccionar Profesor</button></td>
                                             <td>
                                                 <form action="gestionar_solicitudes_pps_action.php" method="POST">
                                                     <input type="hidden" name="dni-alumno" value="<?php echo $alumno["dni_alumno"] ?>">
                                                     <input type="hidden" name="dni-profesor" value="<?php if ($alumno['activo'] == 1) echo $alumno["dni_profesor"] ?>">
-                                                    <button type="submit" class="btn btn-success btn-sm">Confirmar Solicitud</button>
+                                                    <button type="submit" class="btn btn-success btn-sm" aria-label="Confirmar solicitud">Confirmar Solicitud</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -194,17 +194,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modal_profesor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-label" aria-hidden="true">
+    <div class="modal fade" id="modal-profesor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="modalTitleId"></h5>
+                    <h5 class="modal-title text-center" id="modal-profesor-title"></h5>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -226,8 +226,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="guardarProfesor()" <?php if (empty($profesores_dni)) echo 'disabled' ?>>Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" aria-label="Confirmar profesor seleccionado" onclick="guardarProfesor()" <?php if (empty($profesores_dni)) echo 'disabled' ?>>Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar ventana">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -238,7 +238,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <script>
         function setAlumno(legajo, nombre, apellido, dniProfesor) {
             // Recuperar valores del modal.
-            document.getElementById('modalTitleId').innerText = 'Asignar un profesor a ' + apellido + ' ' + nombre;
+            document.getElementById('modal-profesor-title').innerText = 'Asignar un profesor a ' + apellido + ' ' + nombre;
             document.getElementById('modal-input-legajo').value = legajo;
 
             // Si el dniProfesor coincide, seleccionar esa opción.
@@ -263,7 +263,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             document.querySelector('#row' + legajo + ' form input[name="dni-profesor"]').value = dniProfesor;
 
             // Cerrar modal.
-            var modalElement = document.getElementById('modal_profesor');
+            var modalElement = document.getElementById('modal-profesor');
             var modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();
         }

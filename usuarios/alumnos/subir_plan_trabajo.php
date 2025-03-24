@@ -61,7 +61,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <input type="file" class="form-control" name="archivo" id="input-archivo" required>
                 </div>
                 <div class="pb-4 text-center">
-                    <button type="submit" class="btn btn-primary" name="subir" id="submit-button" disabled>Subir archivo</button>
+                    <button type="submit" class="btn btn-primary" name="subir" id="submit-button" aria-label="Subir archivo del plan de trabajo" disabled>Subir archivo</button>
                 </div>
             </form>
         </div>

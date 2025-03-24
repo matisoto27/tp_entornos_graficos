@@ -196,7 +196,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                         <div class="p-2">Fecha de calificación: <?php echo $i['fecha'] ?></div>
                         <div class="p-2">
                             <?php if ($i['estado'] === "RECHAZADO") { ?>
-                                <button type="button" class="btn btn-light btn-sm" style="border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $i['id_informe'] ?>">VER CORRECCIONES</button>
+                                <button type="button" class="btn btn-light btn-sm" style="border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#modal-correcciones<?php echo $i['id_informe'] ?>" aria-label="Abrir correcciones">VER CORRECCIONES</button>
                             <?php } ?>
                         </div>
                     </div>
@@ -208,11 +208,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             if (!empty($i['correcciones'])) {
             ?>
                 <!-- Modal -->
-                <div class="modal fade" id="modal-correcciones<?php echo $i['id_informe'] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-label" aria-hidden="true">
+                <div class="modal fade" id="modal-correcciones<?php echo $i['id_informe'] ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-correcciones-title" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Correcciones del Informe N<?php echo $i['id_informe'] ?></h5>
+                                <h5 class="modal-title" id="modal-correcciones-title">Correcciones del Informe N<?php echo $i['id_informe'] ?></h5>
                             </div>
                             <div class="modal-body">
                                 <p><?php echo $i['correcciones'] ?></p>
@@ -221,7 +221,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                 <div class="container">
                                     <div class="row">
                                         <div class="col d-flex justify-content-center">
-                                            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal" aria-label="Cerrar correcciones">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +251,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                         <?php
                         if (empty($alumno['fecha_pps_aprobadas'])) {
                         ?>
-                            <button type="submit" class="btn btn-success px-5 py-2">Registrar Aprobación</button>
+                            <button type="submit" class="btn btn-success px-5 py-2" aria-label="Registrar aprobación del alumno">Registrar Aprobación</button>
                         <?php
                         } else {
                         ?>
@@ -267,7 +267,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         ?>
         <div class="d-flex flex-row justify-content-center">
             <div class="d-flex flex-column">
-                <button type="button" class="btn btn-primary px-5 py-2" onclick='window.location.href="trazabilidad_pps.php"'>Volver</button>
+                <button type="button" class="btn btn-primary px-5 py-2" aria-label="Volver al menú principal" onclick='window.location.href="trazabilidad_pps.php"'>Volver</button>
             </div>
         </div>
     </div>

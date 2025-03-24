@@ -54,10 +54,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     </datalist>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-success w-100" id="submit-button" disabled>Enviar</button>
+                    <button type="submit" class="btn btn-success w-100" id="submit-button" aria-label="Generar trazabilidad del alumno" disabled>Generar Trazabilidad</button>
                 </div>
                 <div class="mb-4">
-                    <button type="button" class="btn btn-primary w-100" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary w-100" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                 </div>
                 <input type="hidden" name="dni" id="input-dni">
                 <input type="hidden" name="apellido" id="input-apellido">

@@ -69,7 +69,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <input type="email" class="form-control" name="repetir-email" id="input-repetir-email" value="<?php echo $repetir_email ?>" required>
                 </div>
                 <div class="mb-4">
-                    <button type="submit" class="btn btn-primary w-100">Finalizar</button>
+                    <button type="submit" class="btn btn-primary w-100" aria-label="Registrarme">Finalizar</button>
                 </div>
             </form>
             <div class="mb-4 d-flex justify-content-center">
@@ -82,22 +82,22 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <?php
     if (!empty($mensaje)) {
     ?>
-        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-label" aria-hidden="true">
+        <div class="modal fade" id="modal-error" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-error-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">ERROR</h5>
+                        <h5 class="modal-title" id="modal-error-title">ERROR</h5>
                     </div>
                     <div class="modal-body"><?php echo $mensaje ?></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar mensaje de error">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
         <script>
             window.onload = function() {
-                const modal = new bootstrap.Modal(document.getElementById('modal-message'));
+                const modal = new bootstrap.Modal(document.getElementById('modal-error'));
                 modal.show();
             };
         </script>

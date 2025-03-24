@@ -88,7 +88,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 </div>
                 <p class="text-center">Si tienes alguna duda o pregunta, llena el formulario y nos pondremos en contacto contigo.</p>
                 <div class="mt-4 pb-4 w-100 text-center">
-                    <button type="submit" class="btn btn-primary" style="width: 250px;">Enviar</button>
+                    <button type="submit" class="btn btn-primary" style="width: 250px;" aria-label="Enviar correo">Enviar</button>
                 </div>
             </form>
         </div>
@@ -100,15 +100,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <?php
     if (!empty($mensaje)) {
     ?>
-        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-label" aria-hidden="true">
+        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><?php echo $titulo ?></h5>
+                        <h5 class="modal-title" id="modal-message-title"><?php echo $titulo ?></h5>
                     </div>
                     <div class="modal-body"><?php echo $mensaje ?></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar mensaje">Cerrar</button>
                     </div>
                 </div>
             </div>

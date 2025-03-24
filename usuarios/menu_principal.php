@@ -76,7 +76,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img1.jpg" alt="Solicitud de inicio completada">
+                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img1.jpg" alt="Una planilla con datos anotados">
                         </div>
                         <div class="card-body">
                             <p class="card-text">1. Completa la solicitud de inicio para indicar los datos esenciales y empezar tus PPS.</p>
@@ -86,7 +86,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img2.jpg" alt="Carga de archivo en el sistema">
+                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img2.jpg" alt="Un archivo subiendose a la nube del sitio web">
                         </div>
                         <div class="card-body">
                             <p class="card-text">2. Sube un archivo pdf sobre tu plan de trabajo. Incluye mas informacion de la organizacion y un esquema general de las actividades a realizar durante tus PPS.</p>
@@ -96,7 +96,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div style="height: 350px; width: auto; border-bottom: 1px solid black;">
-                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img3.jpg" alt="Profesor ayudando a una alumna">
+                            <img class="object-fit-cover" style="height: 100%; width: 100%;" src="img3.jpg" alt="Un profesor ayudando a su alumna">
                         </div>
                         <div class="card-body">
                             <p class="card-text">3. Sigue semana a semana los avances de tus PPS, reflexionando sobre los aprendizajes adquiridos en cada uno de ellos.</p>
@@ -113,15 +113,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     <?php
     if (!empty($mensaje)) {
     ?>
-        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-label" aria-hidden="true">
+        <div class="modal fade" id="modal-message" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-message-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><?php echo $titulo ?></h5>
+                        <h5 class="modal-title" id="modal-message-title"><?php echo $titulo ?></h5>
                     </div>
                     <div class="modal-body"><?php echo $mensaje ?></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar mensaje">Cerrar</button>
                     </div>
                 </div>
             </div>

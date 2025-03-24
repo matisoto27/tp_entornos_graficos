@@ -86,11 +86,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                             <?php
                                             if ($profesor["activo"] == 1) {
                                             ?>
-                                                <td><button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Activo</button></td>
+                                                <td><button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" aria-label="Dar de baja en el sistema al profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Activo</button></td>
                                             <?php
                                             } else {
                                             ?>
-                                                <td><button type="button" class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Dado de Baja</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#modal-profesor" aria-label="Reactivar en el sistema al profesor" onclick="abrirModal('<?php echo $profesor['dni'] ?>', '<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['activo'] ?>')">Dado de Baja</button></td>
                                             <?php
                                             }
                                             ?>
@@ -171,13 +171,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modal-profesor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-label" aria-hidden="true">
+    <div class="modal fade" id="modal-profesor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-profesor-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -187,9 +187,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     <form method="POST" action="alta_baja_profesores_action.php">
                         <input type="hidden" name="dni" id="input-dni">
                         <input type="hidden" name="activo" id="input-activo">
-                        <button type="submit" class="btn btn-success">Confirmar</button>
+                        <button type="submit" class="btn btn-success" aria-label="Confirmar">Confirmar</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar">Cerrar</button>
                 </div>
             </div>
         </div>

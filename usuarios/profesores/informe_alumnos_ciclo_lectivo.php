@@ -61,10 +61,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                     </datalist>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-success w-100">Descargar</button>
+                    <button type="submit" class="btn btn-success w-100" aria-label="Descargar informe">Descargar</button>
                 </div>
                 <div class="pb-4">
-                    <button type="button" class="btn btn-primary w-100" onclick='window.location.href="../profesores/informes.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary w-100" aria-label="Volver hacia atrás" onclick='window.location.href="../profesores/informes.php"'>Volver</button>
                 </div>
                 <input type="hidden" name="id-ciclo-lectivo" id="input-id-ciclo-lectivo">
                 <input type="hidden" name="anio" id="input-anio">

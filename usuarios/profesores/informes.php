@@ -229,7 +229,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                         $total = $alu['total'];
                                                         if ($alu['total'] < 2) {
                                                 ?>
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-informe" onclick="abrirModal('<?php echo $alumno['dni'] ?>', '<?php echo $alumno['nombre'] ?>', '<?php echo $alumno['apellido'] ?>', '<?php echo $alumno['id_informe'] ?>', '<?php echo $alumno['original'] ?>')">Click aqui</button>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-informe" aria-label="Agregar correcciones y rechazar informe final" onclick="abrirModal('<?php echo $alumno['dni'] ?>', '<?php echo $alumno['nombre'] ?>', '<?php echo $alumno['apellido'] ?>', '<?php echo $alumno['id_informe'] ?>', '<?php echo $alumno['original'] ?>')">Click aqui</button>
                                                         <?php
                                                         }
                                                     } else {
@@ -254,15 +254,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                     if ($alumno['tipo'] === 'informe') {
                                                         if ($alumno['estado_informe'] === "APROBADO") {
                                                     ?>
-                                                            <button type="submit" class="btn btn-secondary" disabled>Aprobado</button>
+                                                            <button type="submit" class="btn btn-secondary" aria-label="Informe aprobado" disabled>Aprobado</button>
                                                         <?php
                                                         } elseif (!empty($alumno['correcciones'])) {
                                                         ?>
-                                                            <button type="submit" class="btn btn-danger" disabled>Rechazado</button>
+                                                            <button type="submit" class="btn btn-danger" aria-label="Informe rechazado" disabled>Rechazado</button>
                                                         <?php
                                                         } else {
                                                         ?>
-                                                            <button type="submit" class="btn btn-success">Aprobar</button>
+                                                            <button type="submit" class="btn btn-success" aria-label="Aprobar informe">Aprobar</button>
                                                         <?php
                                                         }
                                                     } else {
@@ -358,12 +358,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-3">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary px-5 py-2" onclick='window.location.href="informe_alumnos_a_cargo.php"'>Descargar informe de alumnos a cargo actualmente</button>
+                    <button type="button" class="btn btn-primary px-5 py-2" aria-label="Descargar informe de alumnos a cargo actualmente" onclick='window.location.href="informe_alumnos_a_cargo.php"'>Descargar informe de alumnos a cargo actualmente</button>
                 </div>
             </div>
             <div class="row pb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary px-5 py-2" onclick='window.location.href="informe_alumnos_ciclo_lectivo.php"'>Buscar alumnos tutorizados en un ciclo lectivo determinado</button>
+                    <button type="button" class="btn btn-primary px-5 py-2" aria-label="Buscar alumnos tutorizados en un ciclo lectivo determinado" onclick='window.location.href="informe_alumnos_ciclo_lectivo.php"'>Buscar alumnos tutorizados en un ciclo lectivo determinado</button>
                 </div>
             </div>
         </div>
@@ -372,7 +372,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/footer.php';
     ?>
     <!-- Modal -->
-    <div class="modal fade" id="modal-informe" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-informe-label" aria-hidden="true">
+    <div class="modal fade" id="modal-informe" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-informe-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -388,12 +388,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                         <input type="hidden" name="id-informe" id="input-id-informe">
                         <input type="hidden" name="original" id="input-original">
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" aria-label="Registrar correcciones del informe">Guardar</button>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar ventana de correcciones">Cancelar</button>
                 </div>
             </div>
         </div>

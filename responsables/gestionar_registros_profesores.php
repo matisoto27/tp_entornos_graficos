@@ -87,12 +87,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                             <td><?php echo $profesor['fecha_nacimiento'] ?></td>
                                             <td><?php echo $profesor['email'] ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-rechazar" onclick="rechazarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-rechazar" aria-label="Rechazar solicitud de registro" onclick="rechazarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
                                                     <i class="bi bi-x-lg" style="color: white;"></i>
                                                 </button>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-aprobar" onclick="aprobarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-aprobar" aria-label="Aprobar solicitud de registro" onclick="aprobarSolicitud('<?php echo $profesor['nombre'] ?>', '<?php echo $profesor['apellido'] ?>', '<?php echo $profesor['dni'] ?>')">
                                                     <i class="bi bi-check-lg" style="color: white;"></i>
                                                 </button>
                                             </td>
@@ -175,44 +175,44 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             </div>
             <div class="row mb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" onclick='window.location.href="menu_principal.php"'>Volver</button>
+                    <button type="button" class="btn btn-primary p-2" style="width: 250px;" aria-label="Volver al menú principal" onclick='window.location.href="menu_principal.php"'>Volver</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal Rechazar -->
-    <div class="modal fade" id="modal-rechazar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-rechazar-label" aria-hidden="true">
+    <div class="modal fade" id="modal-rechazar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-rechazar-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header justify-content-center">
-                    <h5 class="modal-title">Rechazar Solicitud</h5>
+                    <h5 class="modal-title" id="modal-rechazar-title">Rechazar Solicitud</h5>
                 </div>
                 <div class="modal-body" id="modal-rechazar-body"></div>
                 <div class="modal-footer justify-content-around px-4">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancelar">Cancelar</button>
                     <form method="POST" action="gestionar_registros_profesores_action.php">
                         <input type="hidden" value="rechazar" name="accion">
                         <input type="hidden" name="dni" id="hidden-input-rechazar-dni">
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                        <button type="submit" class="btn btn-primary" aria-label="Confirmar">Confirmar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal Aprobar -->
-    <div class="modal fade" id="modal-aprobar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-aprobar-label" aria-hidden="true">
+    <div class="modal fade" id="modal-aprobar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal-aprobar-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header justify-content-center">
-                    <h5 class="modal-title">Aprobar Solicitud</h5>
+                    <h5 class="modal-title" id="modal-aprobar-title">Aprobar Solicitud</h5>
                 </div>
                 <div class="modal-body" id="modal-aprobar-body"></div>
                 <div class="modal-footer justify-content-around px-4">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancelar">Cancelar</button>
                     <form method="POST" action="gestionar_registros_profesores_action.php">
                         <input type="hidden" value="aprobar" name="accion">
                         <input type="hidden" name="dni" id="hidden-input-aprobar-dni">
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                        <button type="submit" class="btn btn-primary" aria-label="Confirmar">Confirmar</button>
                     </form>
                 </div>
             </div>
