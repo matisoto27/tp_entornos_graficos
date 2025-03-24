@@ -117,12 +117,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
 
 <body>
     <div class="mt-sm-5 container br-class bg-white min-vh-xs-100 p-4" style="max-width: 700px;">
-        <div class="d-flex flex-row justify-content-center mb-3">
+        <div class="d-flex flex-row justify-content-center mb-4">
             <div class="d-flex flex-column">
                 <h2>Trazabilidad de PPS</h2>
             </div>
         </div>
-        <div class="d-flex flex-row justify-content-between mb-3">
+        <div class="d-flex flex-row justify-content-between mb-4">
             <div class="d-flex flex-column align-items-start">
                 <h3>Alumno</h3>
                 <h3><?php echo $nombre . ' ' . $apellido ?></h3>
@@ -135,7 +135,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         <?php
         if (!empty($alumno['fecha_confirmacion_solicitud'])) {
         ?>
-            <div class="d-flex flex-row mb-3">
+            <div class="d-flex flex-row mb-4">
                 <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
                     <div class="p-2">Solicitud de Inicio</div>
                     <div class="p-2">
@@ -151,7 +151,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         }
         if (!empty($alumno['fecha_plan_trabajo'])) {
         ?>
-            <div class="d-flex flex-row mb-3">
+            <div class="d-flex flex-row mb-4">
                 <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
                     <div class="p-2">Plan de Trabajo</div>
                     <div class="p-2">
@@ -168,7 +168,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         foreach ($informes as $i) {
             if ($i['alumno'] === 1) {
             ?>
-                <div class="d-flex flex-row mb-3">
+                <div class="d-flex flex-row mb-4">
                     <div class="d-flex flex-column text-center" style="background-color: lightblue; border-radius: 10px;">
                         <div class="p-2">
                             Informe N<?php echo $i['id_informe'];
@@ -188,7 +188,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
             <?php
             if ($i['alumno'] === 0 && !empty($i['fecha'])) {
             ?>
-                <div class="d-flex flex-row-reverse mb-3">
+                <div class="d-flex flex-row-reverse mb-4">
                     <div class="d-flex flex-column text-center align-items-center" style="background-color: pink; border-radius: 10px;">
                         <div class="p-2">Calificación del Informe N<?php echo $i['id_informe'];
                                                                     if ($i['original'] === 0) echo ' Corregido'; ?></div>
@@ -244,7 +244,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
         <?php
         if ($ultimo_informe['final'] == 1 && !empty($ultimo_informe['estado']) && $ultimo_informe['estado'] === 'APROBADO') {
         ?>
-            <div class="d-flex flex-row justify-content-center my-4" style="border-top: 1px solid black;">
+            <div class="d-flex flex-row justify-content-center pt-4 my-4" style="border-top: 1px solid black;">
                 <div class="d-flex flex-column">
                     <form method="POST" action="action_aprobar_alumno.php">
                         <input type="hidden" name="dni-alumno" value="<?php echo $dni_alumno ?>">

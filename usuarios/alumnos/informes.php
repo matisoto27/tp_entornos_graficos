@@ -24,7 +24,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 
 // Paginación.
 // Definir la cantidad de registros por página.
-$registros_por_pagina = 4;
+$registros_por_pagina = 5;
 // Determinar la página actual.
 if (isset($_GET['pagina']) && is_numeric($_GET['pagina'])) {
     $pagina_actual = $_GET['pagina'];
@@ -199,7 +199,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     while ($informe = $informes_result->fetch_assoc()) {
                                         $contador++;
                                 ?>
-                                        <tr>
+                                        <tr style="height: 60px;">
                                             <th scope="row"><?php echo $informe['id_informe'] ?></th>
                                             <td><?php echo $informe['nombre_archivo'] ?></td>
                                             <td><?php echo $informe['fecha_subida'] ?></td>
@@ -247,11 +247,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     while ($contador < $registros_por_pagina) {
                                         $contador++;
                                     ?>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr style="height: 60px;">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                } else {
+                                    for ($i = 0; $i < $registros_por_pagina; $i++) {
+                                    ?>
+                                        <tr style="height: 60px;">
+                                            <?php
+                                            if ($i == 0) {
+                                            ?>
+                                                <td colspan="4" class="text-center">Todavía no se ha subido ningún informe.</td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td colspan="4"></td>
+                                            <?php
+                                            }
+                                            ?>
                                         </tr>
                                     <?php
                                     }
@@ -308,7 +323,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     <input type="hidden" value="<?php echo $alumno['nombre'] ?>" name="nombre">
                                     <div class="d-flex flex-column">
                                         <div class="d-flex flex-row justify-content-center pb-4">
-                                            <button type="submit" class="btn btn-dark" style="background-color: #af69cd;" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe Final</button>
+                                            <button type="submit" class="btn btn-success" name="subir-informe" id="submit-button-subir-informe" disabled>Subir Informe Final</button>
                                         </div>
                                         <?php
                                         if (!$supera_semana) {

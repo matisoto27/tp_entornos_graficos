@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Cerrar la conexión a la base de datos, redireccionar y finalizar el script actual.
         $mysqli->close();
-        header("Location: informes.php");
+        header("Location: ../menu_principal.php");
         exit();
     } else {
 

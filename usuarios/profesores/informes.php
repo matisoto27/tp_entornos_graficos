@@ -159,7 +159,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
-        <div class="container-fluid br-class alt-background">
+        <div class="container-fluid br-class alt-background" style="border-radius: 0;">
             <div class="row pt-4 mb-3">
                 <div class="col">
                     <h2 class="text-center">PPS Alumnos</h2>
@@ -188,7 +188,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     foreach ($alumnos as $alumno) {
                                         $contador++;
                                 ?>
-                                        <tr style="height: 75px;">
+                                        <tr style="height: 72px;">
                                             <td><?php echo $alumno['fecha_subida'] ?></td>
                                             <td><?php echo $alumno['legajo'] ?></td>
                                             <td><?php echo $alumno['id_informe'] ?></td>
@@ -280,24 +280,29 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                     while ($contador < $registros_por_pagina) {
                                         $contador++;
                                     ?>
-                                        <tr style="height: 75px;">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr style="height: 72px;">
+                                            <td colspan="8"></td>
                                         </tr>
                                     <?php
                                     }
                                 } else {
+                                    for ($i = 0; $i < $registros_por_pagina; $i++) {
                                     ?>
-                                    <tr>
-                                        <td colspan="8" class="text-center">Ha ocurrido un error inesperado al cargar los informes y planes de trabajo</td>
-                                    </tr>
+                                        <tr style="height: 72px;">
+                                            <?php
+                                            if ($i == 0) {
+                                            ?>
+                                                <td colspan="8" class="text-center">Todavía no se han subido informes ni planes de trabajo.</td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td colspan="8"></td>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tr>
                                 <?php
+                                    }
                                 }
                                 ?>
                             </tbody>

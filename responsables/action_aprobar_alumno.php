@@ -89,9 +89,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sisss", $dni_profesor, $id_notificacion, $titulo, $mensaje, $fecha_enviada);
     $stmt->execute();
 
+    // Establecer mensaje de éxito.
+    $_SESSION['mensaje_exito'] = "¡Se ha registrado la aprobación de las PPS del alumno con éxito!";
+
     // Cerrar la conexión a la base de datos, redireccionar y finalizar el script actual.
     $mysqli->close();
-    header("Location: trazabilidad_pps.php");
+    header("Location: menu_principal.php");
     exit();
 } else {
 
