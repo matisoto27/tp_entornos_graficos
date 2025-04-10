@@ -27,6 +27,11 @@ table {
     min-width: 1000px;
 }
 
+.alert {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
 .alt-background {
     background-color: #f8f9fa !important;
 }

@@ -142,53 +142,55 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
-        <div class="container br-class alt-background form-container">
+        <div class="container br-class alt-background form-container" style="max-width: 600px;">
             <h1 class="text-center pt-4 mb-2">Solicitud de Inicio PPS P.2</h1>
-            <h2 class="text-center mb-4">Datos de la Empresa</h2>
-            <form method="POST" action="solicitud_inicio_p3.php" class="mx-auto" style="width: 300px;">
-                <div class="mb-3">
-                    <label for="input-nombre-empresa" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre-empresa" id="input-nombre-empresa" value="<?php echo $nombre_empresa ?>" required>
+            <form method="POST" action="solicitud_inicio_p3.php" class="mx-auto mb-4" style="max-width: 500px;">
+                <div class="row mx-0">
+                    <div class="col-12 col-md-6">
+                        <h2 class="text-center mb-4">Datos de la Empresa</h2>
+                        <div class="mb-3">
+                            <label for="input-nombre-empresa" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre-empresa" id="input-nombre-empresa" value="<?php echo $nombre_empresa ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input-direccion-empresa" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" name="direccion-empresa" id="input-direccion-empresa" value="<?php echo $direccion_empresa ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input-telefono-empresa" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono-empresa" id="input-telefono-empresa" value="<?php echo $telefono_empresa ?>" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="select-modalidad-trabajo" class="form-label">Modalidad de Trabajo</label>
+                            <select class="form-control" name="modalidad-trabajo" id="select-modalidad-trabajo" required>
+                                <option value="" disabled selected>Seleccione una Modalidad</option>
+                                <option value="Presencial" <?php echo $modalidad_trabajo == 'Presencial' ? 'selected' : '' ?>>Presencial</option>
+                                <option value="Remoto" <?php echo $modalidad_trabajo == 'Remoto' ? 'selected' : '' ?>>Remoto</option>
+                                <option value="Hibrido" <?php echo $modalidad_trabajo == 'Hibrido' ? 'selected' : '' ?>>Híbrido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h2 class="text-center mb-4">Datos del Jefe o Superior</h2>
+                        <div class="mb-3">
+                            <label for="input-nombre-jefe" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre-jefe" id="input-nombre-jefe" value="<?php echo $nombre_jefe ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input-apellido-jefe" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" name="apellido-jefe" id="input-apellido-jefe" value="<?php echo $apellido_jefe ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input-email-jefe" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="email-jefe" id="input-email-jefe" value="<?php echo $email_jefe ?>" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success mb-2" aria-label="Enviar solicitud pps">Enviar Solicitud PPS</button>
+                    <button type="button" class="btn btn-primary" aria-label="Volver al menú principal" onclick='window.location.href="solicitud_inicio_p1.php"'>Volver</button>
+                    <input type="hidden" value="<?php echo $legajo ?>" name="legajo">
+                    <input type="hidden" value="<?php echo $carrera ?>" name="carrera">
+                    <input type="hidden" value="<?php echo $dni_profesor ?>" name="dni-profesor">
                 </div>
-                <div class="mb-3">
-                    <label for="input-direccion-empresa" class="form-label">Direccion</label>
-                    <input type="text" class="form-control" name="direccion-empresa" id="input-direccion-empresa" value="<?php echo $direccion_empresa ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="input-telefono-empresa" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" name="telefono-empresa" id="input-telefono-empresa" value="<?php echo $telefono_empresa ?>" required>
-                </div>
-                <div class="mb-5">
-                    <label for="select-modalidad-trabajo" class="form-label">Modalidad de Trabajo</label>
-                    <select class="form-control" name="modalidad-trabajo" id="select-modalidad-trabajo" required>
-                        <option value="" disabled selected>Seleccione una Modalidad</option>
-                        <option value="Presencial" <?php echo $modalidad_trabajo == 'Presencial' ? 'selected' : '' ?>>Presencial</option>
-                        <option value="Remoto" <?php echo $modalidad_trabajo == 'Remoto' ? 'selected' : '' ?>>Remoto</option>
-                        <option value="Hibrido" <?php echo $modalidad_trabajo == 'Hibrido' ? 'selected' : '' ?>>Hibrido</option>
-                    </select>
-                </div>
-                <h4 class="text-center mb-4">Datos del Jefe o Superior</h4>
-                <div class="mb-3">
-                    <label for="input-nombre-jefe" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre-jefe" id="input-nombre-jefe" value="<?php echo $nombre_jefe ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="input-apellido-jefe" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" name="apellido-jefe" id="input-apellido-jefe" value="<?php echo $apellido_jefe ?>" required>
-                </div>
-                <div class="mb-4">
-                    <label for="input-email-jefe" class="form-label">Correo Electronico</label>
-                    <input type="email" class="form-control" name="email-jefe" id="input-email-jefe" value="<?php echo $email_jefe ?>" required>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-success w-100" aria-label="Enviar solicitud pps">Enviar Solicitud PPS</button>
-                </div>
-                <div class="pb-4">
-                    <button type="button" class="btn btn-primary w-100" aria-label="Volver al menú principal" onclick='window.location.href="solicitud_inicio_p1.php"'>Volver</button>
-                </div>
-                <input type="hidden" value="<?php echo $legajo ?>" name="legajo">
-                <input type="hidden" value="<?php echo $carrera ?>" name="carrera">
-                <input type="hidden" value="<?php echo $dni_profesor ?>" name="dni-profesor">
             </form>
         </div>
     </main>

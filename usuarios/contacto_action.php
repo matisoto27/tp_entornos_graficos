@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Remitente y destinatario.
         $mail->setFrom(SENDER_EMAIL, 'UTNFRROPPS-Contact-Us');
-        $mail->addAddress('matiasfranciscosoto123@gmail.com', 'Responsable PPS');
+        $mail->addAddress('maatt.facultad@gmail.com', 'Responsable PPS');
 
         // Establecer contenido del correo.
         $mail->isHTML(true);

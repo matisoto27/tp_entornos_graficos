@@ -130,7 +130,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                 </div>
                 <div class="d-flex flex-column align-items-end">
                     <h3>Profesor</h3>
-                    <h3><?php echo $nombre_profesor . ' ' . $apellido_profesor ?></h3>
+                    <h3 class="text-end"><?php echo $nombre_profesor . ' ' . $apellido_profesor ?></h3>
                 </div>
             </div>
             <?php

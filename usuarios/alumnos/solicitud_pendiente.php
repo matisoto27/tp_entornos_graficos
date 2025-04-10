@@ -54,8 +54,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/usuarios/header.php';
     ?>
     <main class="d-flex justify-content-center align-items-center flex-fill border-top border-bottom">
-        <div class="container alt-background">
-            <div class="alert alert-info" role="alert">
+        <div class="container px-0 alt-background">
+            <div class="alert alert-info text-center" role="alert">
                 <h4 class="alert-heading">Solicitud Enviada</h4>
                 <p>Su solicitud para iniciar las PPS fue enviada. Aún está bajo revisión y se encuentra en estado pendiente.</p>
                 <hr>

@@ -109,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Subject = '¡Bienvenido Profesor!';
-            $mail->Body = 'Hemos verificado tu información y te damos acceso a nuestro sistema. A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:<br><br>Contraseña: <b>' . $contrasena . '</b><br><br>Recuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.<br><br>Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con el equipo administrativo.';
-            $mail->AltBody = 'Hemos verificado tu información y te damos acceso a nuestro sistema. A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:\n\nContraseña: ' . $contrasena . '\n\nRecuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.\n\nSi tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con el equipo administrativo.';
+            $mail->Body = 'Estimado/a ' . $apellido . ' ' . $nombre . ', hemos verificado tu información y te damos acceso a nuestro sistema. A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:<br><br>Contraseña: <b>' . $contrasena . '</b><br><br>Recuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.<br><br>Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con el equipo administrativo.';
+            $mail->AltBody = 'Estimado/a ' . $apellido . ' ' . $nombre . ', hemos verificado tu información y te damos acceso a nuestro sistema. A continuación, encontrarás la contraseña que utilizarás para iniciar sesión:\n\nContraseña: ' . $contrasena . '\n\nRecuerda cambiar tu contraseña al ingresar por primera vez para garantizar la seguridad de tu cuenta.\n\nSi tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con el equipo administrativo.';
 
             // Enviar el correo.
             $mail->send();

@@ -198,13 +198,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/head.php';
                                                 <?php
                                                 if ($alumno['tipo'] === 'plan_trabajo') {
                                                 ?>
-                                                    <a href="../../descargar_archivo.php?nombre-archivo=<?php echo $alumno['nombre_archivo'] ?>&es-informe=0">
+                                                    <a href="../../descargar_archivo.php?nombre-archivo=<?php echo $alumno['nombre_archivo'] ?>&es-informe=0" target="_blank">
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php
                                                 } elseif ($alumno['tipo'] === 'informe') {
                                                 ?>
-                                                    <a href="../../descargar_archivo.php?nombre-archivo=<?php echo $alumno['nombre_archivo'] ?>&es-informe=1">
+                                                    <a href="../../descargar_archivo.php?nombre-archivo=<?php echo $alumno['nombre_archivo'] ?>&es-informe=1" target="_blank">
                                                         <?php echo $alumno['nombre_archivo'] ?>
                                                     </a>
                                                 <?php

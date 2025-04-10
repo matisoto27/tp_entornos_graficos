@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $ruta_archivo = $_SERVER['DOCUMENT_ROOT'] . '/usuarios/alumnos/informes/' . $nombre_archivo;
             if (file_exists($ruta_archivo)) {
                 header('Content-Type: application/pdf');
-                header('Content-Disposition: attachment; filename="' . $nombre_archivo . '"');
+                header('Content-Disposition: inline; filename="' . $nombre_archivo . '"');
                 header('Content-Length: ' . filesize($ruta_archivo));
                 readfile($ruta_archivo);
             } else {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $ruta_archivo = $_SERVER['DOCUMENT_ROOT'] . '/usuarios/alumnos/planes-de-trabajo/' . $nombre_archivo;
             if (file_exists($ruta_archivo)) {
                 header('Content-Type: application/pdf');
-                header('Content-Disposition: attachment; filename="' . $nombre_archivo . '"');
+                header('Content-Disposition: inline; filename="' . $nombre_archivo . '"');
                 header('Content-Length: ' . filesize($ruta_archivo));
                 readfile($ruta_archivo);
             } else {

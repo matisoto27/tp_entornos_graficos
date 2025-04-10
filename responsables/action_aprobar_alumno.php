@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Establecer variables para la consulta.
     $titulo = 'PPS Aprobadas';
-    $mensaje = 'Un administrador ha realizado el registro de la aprobación de tus prácticas profesionales supervisadas.';
+    $mensaje = 'Un administrador ha realizado el registro de la aprobación de tus prácticas profesionales supervisadas. ¡Felicitaciones!';
     $fecha_enviada = date("Y-m-d H:i:s");
 
     // Prepared statement.
